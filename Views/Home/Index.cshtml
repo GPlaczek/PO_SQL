@@ -1,7 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Generator kwerend SQL</h1>
-</div>
+@using (Html.BeginForm("Another", "Different"))
+{
+    <div class="text-center">
+        <h1 class="display-4">Generator Kwerend SQL</h1>
+        <input type="text" name="ProductName" /><br /><br />
+        <input type="text" name="ProductDescription" /><br /><br />
+        <input type="text" name="priceMin" style="width:60px" />
+        <input type="text" name="priceMax" style="width:60px" /><br /><br />
+        <input type="submit" name="Submit" />
+    </div>
+}
