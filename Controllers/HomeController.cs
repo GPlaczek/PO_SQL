@@ -23,6 +23,21 @@ namespace PO_SQL.Controllers
             return View();
         }
 
+        public IActionResult SearchProducts()
+        {
+            return View();
+        }
+
+        public IActionResult AddProduct()
+        {
+            return View();
+        }
+
+        public IActionResult ModifyProduct()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

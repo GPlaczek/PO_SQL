@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Przeszukaj Produkty";
+}
+@using (Html.BeginForm("SearchResults", "Results"))
+{
+    <div class="text-center">
+        <h1 class="display-4">Przeszukaj produkty</h1>
+        <input type="text" placeholder="Nazwa" name="ProductName" /><br /><br />
+        <input type="text" placeholder="Fragment opisu" name="ProductDescription" /><br /><br />
+        Cena:
+        <input type="text" name="priceMin" style="width:60px" />
+        <input type="text" name="priceMax" style="width:60px" /><br /><br />
+        <input type="submit" name="Submit" />
+    </div>
+}

@@ -3,12 +3,12 @@
     var productName = ViewData["ProductName"] as string;
     var productDescription = ViewData["ProductDescription"] as string;
     var priceMin = ViewData["PriceMin"] as string;
-    var priceMax = ViewData["PriceMax"] as string;
+    var priceMax = ViewData["PriceMin"] as string;
 }
 <div class="content">
-    <h1 class="display-4">Wynik zapytania</h1>
+    <h1 class="display-4">Wynik przeszukania</h1>
     @productName<br />
     @productDescription<br />
     @priceMin<br />
-    @priceMax<br />
+    @priceMax<br/>
 </div>
