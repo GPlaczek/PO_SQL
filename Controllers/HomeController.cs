@@ -38,6 +38,10 @@ namespace PO_SQL.Controllers
             return View();
         }
 
+        public IActionResult AddTable()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

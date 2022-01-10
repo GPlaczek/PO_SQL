@@ -14,7 +14,7 @@ namespace PO_SQL.Controllers
         public IActionResult SearchResults(string productName, string productDescription, string priceMin, string priceMax)
         {
             a1 = new SearchTables(productName, productDescription, priceMin, priceMax, new List<string>() { "tabela" });
-            ViewData["query"] = a1.execute();
+            ViewData["query"] = a1.Execute();
             return View();
         }
         public IActionResult AddResult(string productName, string productDescription, string price)
@@ -29,6 +29,20 @@ namespace PO_SQL.Controllers
             ViewData["ProductName"] = productName;
             ViewData["ProductDescription"] = productDescription;
             ViewData["Price"] = price;
+            return View();
+        }
+        public IActionResult AddTableResult(string tableName)
+        {
+            a1 = new AddTable(tableName);
+            try
+            {
+                a1.Execute();
+                ViewData["stat"] = "Udało się utworzyć tabelę";
+            }
+            catch
+            {
+                ViewData["stat"] = $"Nie udało się utworzyć tabeli";
+            }
             return View();
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data.SQLite;
 
 namespace PO_SQL.Models.ActionClasses
 {
@@ -12,9 +13,13 @@ namespace PO_SQL.Models.ActionClasses
         private string PriceMin { get; set; }
         private string PriceMax { get; set; }
         public List<String> Tables;
-        public string execute()
+        public SQLiteDataReader Execute()
         {
-            return $"SELECT * FROM {Tables[0]} WHERE name={Name} and desc=*{ Desc}* and price > {PriceMin} and price < {PriceMax}";
+            SQLiteConnection c1 = new("Data Source = ..\\..\\Data\\database.db");
+            c1.Open();
+            var command = $"SELECT * FROM {Tables[0]} WHERE name={Name} and desc=*{Desc}* and price > {PriceMin} and price < {PriceMax}";
+            SQLiteCommand com = new(command, c1);
+            return com.ExecuteReader();
         }
         public SearchTables(string Name, string Desc, string min, string max, List<String> Tables)
         {
