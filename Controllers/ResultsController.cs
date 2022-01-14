@@ -38,11 +38,25 @@ namespace PO_SQL.Controllers
             try
             {
                 a1.Execute();
-                ViewData["stat"] = "Udało się utworzyć tabelę";
+                ViewData["stat"] = $"Udało się utworzyć tabelę {tableName}";
             }
             catch
             {
-                ViewData["stat"] = $"Nie udało się utworzyć tabeli";
+                ViewData["stat"] = $"Nie udało się utworzyć tabeli {tableName}";
+            }
+            return View();
+        }
+        public IActionResult DeleteTableResult(string tableName)
+        {
+            a1 = new DeleteTable(tableName);
+            try
+            {
+                a1.Execute();
+                ViewData["stat"] = $"Udało się usunąć tabelę {tableName}";
+            }
+            catch
+            {
+                ViewData["stat"] = $"Nie udało się usunąć tabeli {tableName}";
             }
             return View();
         }
