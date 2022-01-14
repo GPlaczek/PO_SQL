@@ -13,7 +13,7 @@ namespace PO_SQL.Models.ActionClasses
         public string Name { get; set; }
         public DeleteTable(string Name)
         {
-            this.Name = Name;
+            this.Name = Name.ToLower();
         }
         public SQLiteDataReader Execute()
         {

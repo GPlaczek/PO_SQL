@@ -34,6 +34,7 @@ namespace PO_SQL.Controllers
         }
         public IActionResult AddTableResult(string tableName)
         {
+            tableName = tableName.ToLower();
             a1 = new AddTable(tableName);
             try
             {
@@ -48,6 +49,7 @@ namespace PO_SQL.Controllers
         }
         public IActionResult DeleteTableResult(string tableName)
         {
+            tableName = tableName.ToLower();
             a1 = new DeleteTable(tableName);
             try
             {

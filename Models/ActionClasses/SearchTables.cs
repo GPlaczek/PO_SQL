@@ -23,8 +23,8 @@ namespace PO_SQL.Models.ActionClasses
         }
         public SearchTables(string Name, string Desc, string min, string max, List<String> Tables)
         {
-            this.Name = Name;
-            this.Desc = Desc;
+            this.Name = Name.ToLower();
+            this.Desc = Desc.ToLower();
             this.PriceMin = min;
             this.PriceMax = max;
             this.Tables = Tables;

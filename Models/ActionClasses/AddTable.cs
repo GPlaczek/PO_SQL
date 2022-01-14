@@ -11,7 +11,7 @@ namespace PO_SQL.Models.ActionClasses
         public string Name { get; set; }
         public AddTable(string Name)
         {
-            this.Name = Name;
+            this.Name = Name.ToLower();
         }
         public SQLiteDataReader Execute()
         {

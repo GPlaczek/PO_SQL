@@ -12,8 +12,8 @@ namespace PO_SQL.Models.DatabaseActionClasses
         public string Table { get; set; }
         public DeleteProduct(string Name, string Table)
         {
-            this.Name = Name;
-            this.Table = Table;
+            this.Name = Name.ToLower();
+            this.Table = Table.ToLower();
         }
         public void Execute()
         {

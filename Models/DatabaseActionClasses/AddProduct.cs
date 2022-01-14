@@ -14,10 +14,10 @@ namespace PO_SQL.Models.DatabaseActionClasses
         public string Table { get; set; }
         public AddProduct(string Name, string Desc, string Price, string Table)
         {
-            this.Name = Name;
-            this.Desc = Desc;
-            this.Price = Price;
-            this.Table = Table;
+            this.Name = Name.ToLower();
+            this.Desc = Desc.ToLower();
+            this.Price = Price.ToLower();
+            this.Table = Table.ToLower();
         }
         public void Execute()
         {
