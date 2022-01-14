@@ -24,5 +24,19 @@ namespace PO_SQL.Controllers
             }
             return View();
         }
+        public IActionResult DeleteProductResult(string Name, string Table)
+        {
+            a1 = new DeleteProduct(Name, Table);
+            try
+            {
+                a1.Execute();
+                ViewData["stat"] = "Udało się usunąć produkt";
+            }
+            catch
+            {
+                ViewData["stat"] = "Nie udało się usunąć produktu";
+            }
+            return View();
+        }
     }
 }

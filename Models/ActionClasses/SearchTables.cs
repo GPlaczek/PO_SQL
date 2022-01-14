@@ -17,7 +17,7 @@ namespace PO_SQL.Models.ActionClasses
         {
             SQLiteConnection c1 = new("Data Source = ..\\..\\Data\\database.db");
             c1.Open();
-            var command = $"SELECT * FROM {Tables[0]} WHERE name={Name} and desc=*{Desc}* and price > {PriceMin} and price < {PriceMax}";
+            var command = $"SELECT * FROM {Tables[2]} WHERE name={Name} and desc=*{Desc}* and price > {PriceMin} and price < {PriceMax}";
             SQLiteCommand com = new(command, c1);
             return com.ExecuteReader();
         }

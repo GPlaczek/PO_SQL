@@ -24,6 +24,7 @@ namespace PO_SQL.Controllers
             ViewData["Price"] = price;
             return View();
         }
+
         public IActionResult ModifyResult(string productName, string productDescription, string price)
         {
             ViewData["ProductName"] = productName;
@@ -45,5 +46,6 @@ namespace PO_SQL.Controllers
             }
             return View();
         }
+
     }
 }
