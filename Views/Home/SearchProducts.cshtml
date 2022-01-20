@@ -1,16 +1,29 @@
-﻿@{
-    ViewData["Title"] = "Przeszukaj Produkty";
+﻿@using System.Data.SQLite
+@using PO_SQL.Models.ActionClasses
+@{
+    ViewData["Title"] = "Przeszukaj produkty";
+    IAction a1 = new ListTables();
+    var tables = a1.Execute();
 }
 @using (Html.BeginForm("SearchResults", "Results"))
 {
 <div class="text-center">
     <h1 class="display-4">Przeszukaj produkty</h1>
-    <input type="text" placeholder="Tabela" name="tableName" /><br /><br />
+    <table>
+        @for (int i = 0; tables.Read(); i++)
+        {
+        <tr>
+            <td>
+                <input type="checkbox" name="Table[]" value="@tables.GetString(0)"/>
+                @tables.GetString(0)
+            </td>
+        </tr>
+        }
+    </table>
     <input type="text" placeholder="Nazwa" name="productName" /><br /><br />
     <input type="text" placeholder="Fragment opisu" name="productDescription" /><br /><br />
     Cena:
     <input type="text" name="priceMin" style="width:60px" />
     <input type="text" name="priceMax" style="width:60px" /><br /><br />
     <input type="submit" name="Submit" />
-</div>
-}
+</div>}

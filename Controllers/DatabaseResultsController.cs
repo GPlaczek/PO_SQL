@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PO_SQL.Models.DatabaseActionClasses;
+using PO_SQL.Models.ActionClasses;
 
 namespace PO_SQL.Controllers
 {
     public class DatabaseResultsController : Controller
     {
         private IDatabaseAction a1;
+        [HttpPost]
         public IActionResult AddProductResult(string Name, string Desc, string Price, string Table)
         {
             a1 = new AddProduct(Name, Desc, Price, Table);

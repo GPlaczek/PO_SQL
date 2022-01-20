@@ -13,7 +13,9 @@ namespace PO_SQL.Controllers
         [HttpPost]
         public IActionResult SearchResults(string tableName, string productName, string productDescription, string priceMin, string priceMax)
         {
-            a1 = new SearchTables(productName, productDescription, priceMin, priceMax, new List<string>() { tableName });
+            var tabs = Request.Form["Table[]"];
+            List<string> Tables = new(tabs);
+            a1 = new SearchTables(productName, productDescription, priceMin, priceMax, Tables);
             ViewData["query"] = a1.Execute();
             return View();
         }

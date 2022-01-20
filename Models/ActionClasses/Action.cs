@@ -6,7 +6,7 @@ using System.Data.SQLite;
 
 namespace PO_SQL.Models.ActionClasses
 {
-    interface IAction
+    public interface IAction
     {
         public SQLiteDataReader Execute();
     }

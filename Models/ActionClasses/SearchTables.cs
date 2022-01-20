@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.Text;
+using System.Diagnostics;
 
 namespace PO_SQL.Models.ActionClasses
 {
@@ -17,8 +19,13 @@ namespace PO_SQL.Models.ActionClasses
         {
             SQLiteConnection c1 = new("Data Source = Data\\database.db");
             c1.Open();
-            var command = $"SELECT * FROM {Tables[2]} WHERE name={Name} and desc=*{Desc}* and price > {PriceMin} and price < {PriceMax}";
-            SQLiteCommand com = new(command, c1);
+            StringBuilder sb = new($"select * FROM {Tables[0]} WHERE name='{Name}' and desc='{Desc}' ");
+            for (int i = 1; i < Tables.Count; i++)
+            {
+                sb.Append($"UNION SELECT * from {Tables[i]} WHERE name='{Name}' and desc='{Desc}'");
+            }
+            Debug.Write($"SELECT * FROM {sb.ToString()}");
+            SQLiteCommand com = new(sb.ToString(), c1);
             return com.ExecuteReader();
         }
         public SearchTables(string Name, string Desc, string min, string max, List<String> Tables)
