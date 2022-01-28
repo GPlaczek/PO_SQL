@@ -7,19 +7,19 @@
 }
 @using (Html.BeginForm("AddProductResult", "DatabaseResults"))
 {
-<div class="text-center">
-    <h1 class="display-4">Dodaj Produkt</h1>
-    <table class="text-center">
-        @for (int i = 0; tables.Read(); i++)
-        {
-             <tr><td><input type="radio" name="Table" value="@tables.GetString(0)"/>
-                @tables.GetString(0)
-                 </td></tr>
+    <div class="text-center">
+        <h1 class="display-4">Dodaj Produkt</h1>
+        <table class="text-center">
+            @for (int i = 0; tables.Read(); i++)
+            {
+                <tr><td><input type="radio" name="Table" value="@tables.GetString(0)" />
+                        @tables.GetString(0)
+                    </td></tr>
             }
-    </table>
-    <input type="text" placeholder="Nazwa" name="Name" /><br /><br />
-    <input type="text" placeholder="Fragment opisu" name="Desc" /><br /><br />
-    <input type="text" name="Price" placeholder="Cena" /><br /><br />
-    <input type="submit" name="Submit" />
-</div>
+        </table>
+        <input type="text" placeholder="Nazwa" name="Name" /><br /><br />
+        <input type="text" placeholder="Fragment opisu" name="Desc" /><br /><br />
+        <input type="text" name="Price" placeholder="Cena" /><br /><br />
+        <input type="submit" name="Submit" />
+    </div>
 }
