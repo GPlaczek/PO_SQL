@@ -19,14 +19,6 @@ namespace PO_SQL.Controllers
             ViewData["query"] = a1.Execute();
             return View();
         }
-        public IActionResult AddResult(string productName, string productDescription, string price)
-        {
-            ViewData["ProductName"] = productName;
-            ViewData["ProductDescription"] = productDescription;
-            ViewData["Price"] = price;
-            return View();
-        }
-
         public IActionResult ModifyResult(string productName, string productDescription, string price)
         {
             ViewData["ProductName"] = productName;
@@ -55,7 +47,6 @@ namespace PO_SQL.Controllers
             {
                 ViewData["stat"] = "Brak tabel w bazie danych";
                 return View();
-                
             }
             tableName = tableName.ToLower();
             a1 = new DeleteTable(tableName);

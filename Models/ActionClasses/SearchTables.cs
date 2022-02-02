@@ -33,8 +33,10 @@ namespace PO_SQL.Models.ActionClasses
             this.Name = Name.ToLower();
             if (Desc == null) this.Desc = ""; // pole 'opis' mozna zostawic puste
             else this.Desc = Desc.ToLower();
-            this.PriceMin = min;
-            this.PriceMax = max;
+            if (min == null) min = "0";
+            else this.PriceMin = min;   // puste pola zakresu ceny oznaczaja ze cena moze byc dowolna
+            if (max == null) max = "1000000000";
+            else this.PriceMax = max;
             this.Tables = Tables;
         }
     }
