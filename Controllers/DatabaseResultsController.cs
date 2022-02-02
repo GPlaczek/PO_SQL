@@ -14,27 +14,27 @@ namespace PO_SQL.Controllers
         [HttpPost]
         public IActionResult AddProductResult(string Name, string Desc, string Price, string Table)
         {
-            a1 = new AddProduct(Name, Desc, Price, Table);
-            try
+            if (Table != null) 
             {
+                a1 = new AddProduct(Name, Desc, Price, Table);
                 a1.Execute();
-                ViewData["stat"] = "Udało się utworzyć produkt";
+                ViewData["stat"] = "Udało się dodać produkt";
             }
-            catch
+            else
             {
-                ViewData["stat"] = "Nie udało się utworzyć produktu";
+                ViewData["stat"] = "Nie udało się dodać produktu";
             }
             return View();
         }
         public IActionResult DeleteProductResult(string Name, string Table)
         {
-            a1 = new DeleteProduct(Name, Table);
-            try
+            if (Table != null)
             {
+                a1 = new DeleteProduct(Name, Table);
                 a1.Execute();
                 ViewData["stat"] = "Udało się usunąć produkt";
             }
-            catch
+            else
             {
                 ViewData["stat"] = "Nie udało się usunąć produktu";
             }

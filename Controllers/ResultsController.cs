@@ -11,7 +11,7 @@ namespace PO_SQL.Controllers
     {
         private IAction a1;
         [HttpPost]
-        public IActionResult SearchResults(string tableName, string productName, string productDescription, string priceMin, string priceMax)
+        public IActionResult SearchResults(string productName, string productDescription, string priceMin, string priceMax)
         {
             var tabs = Request.Form["Table[]"];
             List<string> Tables = new(tabs);
@@ -51,6 +51,12 @@ namespace PO_SQL.Controllers
         }
         public IActionResult DeleteTableResult(string tableName)
         {
+            if (tableName == null)
+            {
+                ViewData["stat"] = "Brak tabel w bazie danych";
+                return View();
+                
+            }
             tableName = tableName.ToLower();
             a1 = new DeleteTable(tableName);
             try

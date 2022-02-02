@@ -1,11 +1,21 @@
-﻿@{
+﻿@using System.Data.SQLite
+@using PO_SQL.Models.ActionClasses
+@{
     ViewData["Title"] = "Usuń tabelę";
+    IAction a1 = new ListTables();
+    var tables = a1.Execute();
 }
 @using (Html.BeginForm("DeleteTableResult", "Results"))
 {
-    <div class="text-center">
-        <h1 class="display-4">Usuń tabelę z bazy danych</h1>
-        <input type="text" placeholder="Nazwa" name="TableName" /><br /><br />
-        <input type="submit" name="Submit" />
-    </div>
+<div class="text-center">
+    <h1 class="display-4">Usuń tabelę z bazy danych</h1>
+    <select class="text-center" name="TableName" id="dropdowntipo">
+        @for (int i = 0; tables.Read(); i++)
+        {
+            <option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>
+        }
+    </select>
+    <br /><br />
+    <input type="submit" name="Submit" />
+</div>
 }
