@@ -19,18 +19,23 @@ namespace PO_SQL.Models.ActionClasses
         {
             SQLiteConnection c1 = new("Data Source = Data\\database.db");
             c1.Open();
-            StringBuilder sb = new($"select * FROM {Tables[0]} WHERE name='{Name}' and desc LIKE '%{Desc}%' "); // % - wiele lub 0 znakow
-            for (int i = 1; i < Tables.Count; i++)
+            StringBuilder sb = new("");
+            for (int i = 0; i < Tables.Count; i++)
             {
-                sb.Append($"UNION SELECT * from {Tables[i]} WHERE name='{Name}' and desc LIKE '%{Desc}%'");
+                sb.Append($"select * FROM {Tables[i]} WHERE desc LIKE '%{Desc}%' ");
+                if (Name != "") sb.Append($"and Name = '{this.Name}' ");
+                if (PriceMin != null) sb.Append($"and Price >= {this.PriceMin} ");
+                if (PriceMax != null) sb.Append($"and Price <= {this.PriceMax} ");
+                if (i != Tables.Count - 1) sb.Append("UNION ");
             }
-            Debug.Write($"SELECT * FROM {sb.ToString()}");
+            Debug.WriteLine($"SELECT * FROM {sb.ToString()}");
             SQLiteCommand com = new(sb.ToString(), c1);
             return com.ExecuteReader();
         }
         public SearchTables(string Name, string Desc, string min, string max, List<String> Tables)
         {
-            this.Name = Name.ToLower();
+            if (Name == null) this.Name = "";
+            else this.Name = Name.ToLower();
             if (Desc == null) this.Desc = ""; // pole 'opis' mozna zostawic puste
             else this.Desc = Desc.ToLower();
             if (min == null) min = "0";

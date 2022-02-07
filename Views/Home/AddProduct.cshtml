@@ -9,14 +9,12 @@
 {
     <div class="text-center">
         <h1 class="display-4">Dodaj Produkt</h1>
-        <table class="text-center">
+        <select class="text-center" name="Table" id="dropdowntipo">
             @for (int i = 0; tables.Read(); i++)
             {
-                <tr><td><input type="radio" name="Table" value="@tables.GetString(0)" />
-                        @tables.GetString(0)
-                    </td></tr>
+                <option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>
             }
-        </table>
+        </select><br/><br/>
         <input type="text" placeholder="Nazwa" name="Name" /><br /><br />
         <input type="text" placeholder="Fragment opisu" name="Desc" /><br /><br />
         <input type="text" name="Price" placeholder="Cena" /><br /><br />
