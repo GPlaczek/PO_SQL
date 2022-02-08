@@ -60,4 +60,9 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+<script>
+    $('#TabSelect').multiselect({
+        includeSelectAllOption: true
+    });
+</script>
 </html>
