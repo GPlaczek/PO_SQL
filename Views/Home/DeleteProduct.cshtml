@@ -5,6 +5,7 @@
     ViewData["Title"] = "Usuń produkt";
     IAction a1 = new ListTables();
     var tables = a1.Execute();
+    var query = ViewData["query"] as SQLiteDataReader;
 }
 @using (Html.BeginForm("DeleteProductResult", "DatabaseResults"))
 {
@@ -14,6 +15,13 @@
         @for (int i = 0; tables.Read(); i++)
         {
             <option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>
+        }
+    </select>
+    <br /><br />
+    <select class="text-center" name="Products" id="dropdowntipo">
+        @for (int i = 0; query.Read(); i++)
+        {
+            <option value="@query.GetString(0)" name="ProductName">@query.GetString(0)</option>
         }
     </select>
     <br /><br />

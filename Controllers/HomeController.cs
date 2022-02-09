@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using PO_SQL.Models.ActionClasses;
 
 namespace PO_SQL.Controllers
 {
@@ -44,6 +45,10 @@ namespace PO_SQL.Controllers
         }
         public IActionResult DeleteProduct()
         {
+/*            var tabs = Request.Form["Table[]"];
+            List<string> Tables = new(tabs);
+            var a1 = new SearchTables(productName, productDescription, priceMin, priceMax, Tables);
+            ViewData["query"] = a1.Execute();*/
             return View();
         }
         public IActionResult DeleteTable()

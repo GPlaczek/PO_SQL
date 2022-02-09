@@ -14,25 +14,21 @@ namespace PO_SQL.Models.ActionClasses
         private string Desc { get; set; }
         private string PriceMin { get; set; }
         private string PriceMax { get; set; }
-        public List<String> Tables;
+        private string Table { get; set; }
         public SQLiteDataReader Execute()
         {
             SQLiteConnection c1 = new("Data Source = Data\\database.db");
             c1.Open();
             StringBuilder sb = new("");
-            for (int i = 0; i < Tables.Count; i++)
-            {
-                sb.Append($"select * FROM {Tables[i]} WHERE desc LIKE '%{Desc}%' ");
-                if (Name != "") sb.Append($"and Name = '{this.Name}' ");
-                if (PriceMin != null) sb.Append($"and Price >= {this.PriceMin} ");
-                if (PriceMax != null) sb.Append($"and Price <= {this.PriceMax} ");
-                if (i != Tables.Count - 1) sb.Append("UNION ");
-            }
+            sb.Append($"select * FROM {Table} WHERE desc LIKE '%{Desc}%' ");
+            if (Name != "") sb.Append($"and Name = '{this.Name}' ");
+            if (PriceMin != null) sb.Append($"and Price >= {this.PriceMin} ");
+            if (PriceMax != null) sb.Append($"and Price <= {this.PriceMax} ");
             Debug.WriteLine($"SELECT * FROM {sb.ToString()}");
             SQLiteCommand com = new(sb.ToString(), c1);
             return com.ExecuteReader();
         }
-        public SearchTables(string Name, string Desc, string min, string max, List<String> Tables)
+        public SearchTables(string Name, string Desc, string min, string max, string Table)
         {
             if (Name == null) this.Name = "";
             else this.Name = Name.ToLower();
@@ -42,7 +38,7 @@ namespace PO_SQL.Models.ActionClasses
             else this.PriceMin = min;   // puste pola zakresu ceny oznaczaja ze cena moze byc dowolna
             if (max == null) max = "1000000000";
             else this.PriceMax = max;
-            this.Tables = Tables;
+            this.Table = Table;
         }
     }
 }

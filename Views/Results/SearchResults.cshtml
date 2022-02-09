@@ -1,31 +1,34 @@
 ﻿@using System.Data.SQLite
 @{
     Layout = "_Layout";
-    var query = ViewData["query"] as SQLiteDataReader;
-}
+    var tabNames = ViewData["tabNames"] as List<string>;
+    var names = ViewData["names"] as List<string>;
+    var description = ViewData["description"] as List<string>;
+    var price = ViewData["price"] as List<float>;
+    }
 
-@model IEnumerable<PO_SQL.Models.Product>
+    @model IEnumerable<PO_SQL.Models.Product>
 
-@{
-    ViewBag.Title = "Index";
-}
-<div class="center">
-    <h1 class="display-4">Wynik przeszukania</h1>
-    <table class="table table-bordered table-responsive table-hover">
-        <tr>
-            <th>Tabela</th>
-            <th>Nazwa produktu</th>
-            <th>Opis</th>
-            <th>Cena</th>
-        </tr>
-        @while (query.Read())
-        {
+    @{
+        ViewBag.Title = "Index";
+    }
+    <div class="center">
+        <h1 class="display-4">Wynik przeszukania</h1>
+        <table class="table table-bordered table-responsive table-hover">
             <tr>
-                <td>---</td> <!--TODO nazwa tabeli-->
-                <td>@query.GetString(0)</td>
-                <td>@query.GetString(1)</td>
-                <td>@query.GetFloat(2)</td>
+                <th>Tabela</th>
+                <th>Nazwa produktu</th>
+                <th>Opis</th>
+                <th>Cena</th>
             </tr>
-        }
-    </table>
-</div>
+            @for (int i=0; i<tabNames.Count; i++)
+            {
+                <tr>
+                    <td>@tabNames[i]</td> <!--TODO nazwa tabeli-->
+                    <td>@names[i]</td>
+                    <td>@description[i]</td>
+                    <td>@price[i]</td>
+                </tr>
+            }
+        </table>
+    </div>
