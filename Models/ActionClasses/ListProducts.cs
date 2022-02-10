@@ -4,19 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 
-namespace PO_SQL.Models.DatabaseActionClasses
+namespace PO_SQL.Models.ActionClasses
 {
-    // planuje uzyc tego pozniej aby to dropdownlisty przy usuwaniu produktu
-    public class ListProducts : IDatabaseAction
+    public class ListProducts : IAction
     {
         private string Name { get; set; }
-        public void Execute()
+        public ListProducts(string N)
+        {
+            this.Name = N;
+        }
+        public SQLiteDataReader Execute()
         {
             SQLiteConnection c1 = new("Data source = Data\\database.db");
             c1.Open();
             var command = $"SELECT * FROM {Name}";
             SQLiteCommand com = new(command, c1);
-            com.ExecuteReader();
+            return com.ExecuteReader();
         }
     }
 }

@@ -1,31 +1,56 @@
 ﻿@using System.Data.SQLite
 @using PO_SQL.Models.ActionClasses
-@using PO_SQL.Models.DatabaseActionClasses 
+@using PO_SQL.Models.DatabaseActionClasses
 @{
     ViewData["Title"] = "Usuń produkt";
     IAction a1 = new ListTables();
     var tables = a1.Execute();
+    IAction a2;
+    Dictionary<string, List<string>> DB = new Dictionary<string, List<string>>();
+    while (tables.Read())
+    {
+        string table = tables.GetString(0);
+        DB[table] = new List<string>();
+        a2 = new ListProducts(table);
+        var products = a2.Execute();
+        while (products.Read())
+        {
+            DB[table].Add(products.GetString(0));
+        }
+    }
     var query = ViewData["query"] as SQLiteDataReader;
+
 }
 @using (Html.BeginForm("DeleteProductResult", "DatabaseResults"))
 {
-<div class="text-center">
-    <h1 class="display-4">Usuń produkt</h1>
-    <select class="text-center" name="Table" id="dropdowntipo">
-        @for (int i = 0; tables.Read(); i++)
-        {
-            <option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>
-        }
-    </select>
-    <br /><br />
-    <select class="text-center" name="Products" id="dropdowntipo">
-        @for (int i = 0; query.Read(); i++)
-        {
-            <option value="@query.GetString(0)" name="ProductName">@query.GetString(0)</option>
-        }
-    </select>
-    <br /><br />
-    <input type="text" placeholder="Nazwa" name="Name" /><br /><br />
-    <input type="submit" name="Submit" />
-</div>
+    <div class="text-center">
+        <h1 class="display-4">Usuń produkt</h1>
+        <select class="text-center" name="Table" id="dropdowntable" onchange="fillProductsList()">
+            @foreach (string table in DB.Keys)
+            {
+                <option value="@table" name="TableName">@table</option>
+            }
+        </select>
+        <br /><br />
+        <!--<input type="text" value="@DB.First().Key" name="Name" id="dropdownproduct" /><br /><br />-->
+        <select class="text-center" name="Name" id="dropdownproduct2">
+            @foreach (var product in DB.First().Value)
+            {
+                <option value="@product" name="TableName">@product</option>
+            }
+        </select>
+        <br /><br />
+        <script>
+            function fillProductsList() {
+                document.getElementById("dropdownproduct").value = document.getElementById("dropdowntable").value;
+        </script>
+        <input type="submit" name="Submit" />
+    </div>
 }
+
+
+<!--
+
+PROBOWALEM OGARNAC COS Z TEGO LINKU ALE NARAZIE SIE NIE UDALO: https://www.c-sharpcorner.com/UploadFile/4d9083/creating-simple-cascading-dropdownlist-in-mvc-4-using-razor/
+
+-->
