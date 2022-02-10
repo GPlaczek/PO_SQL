@@ -8,7 +8,7 @@
 @using (Html.BeginForm("AddProductResult", "DatabaseResults"))
 {
     <div class="text-center">
-        <h1 class="display-4">Dodaj Produkt</h1>
+        <h1 class="display-4">Dodaj Produkt</h1><br />
         <select class="text-center" name="Table" id="dropdowntipo">
             @for (int i = 0; tables.Read(); i++)
             {

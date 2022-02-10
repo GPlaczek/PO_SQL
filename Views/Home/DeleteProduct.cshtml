@@ -24,7 +24,7 @@
 @using (Html.BeginForm("DeleteProductResult", "DatabaseResults"))
 {
     <div class="text-center">
-        <h1 class="display-4">Usuń produkt</h1>
+        <h1 class="display-4">Usuń produkt</h1><br />
         <select class="text-center" name="Table" id="dropdowntable" onchange="fillProductsList()">
             @foreach (string table in DB.Keys)
             {
