@@ -1,13 +1,19 @@
-﻿@{
-    ViewData["Title"] = "Modyfikuj Produkt";
+﻿@using System.Data.SQLite
+@using PO_SQL.Models.ActionClasses
+@model PO_SQL.Models.Product
+@{  
+    Layout = "_Layout";
+    ViewBag.Title = "Index";
+    ViewData["Title"] = "ModifyProduct";
+    var product = (Product)ViewData["Data"];
 }
 @using (Html.BeginForm("AddResult", "DatabaseResults"))
 {
-    <div class="text-center">
-        <h1 class="display-4">Przeszukaj produkt</h1>
-        <input type="text" placeholder="Nazwa" name="ProductName" /><br /><br />
-        <input type="text" placeholder="Fragment opisu" name="ProductDescription" /><br /><br />
-        <input type="text" name="price" placeholder="Cena" /><br /><br />
-        <input type="submit" name="Submit" />
-    </div>
+<div class="text-center">
+    <h1 class="display-4">Modyfikuj wybrany produkt</h1><br />
+    <input type="text" value="@product.Name" name="ProductName" /><br /><br />
+    <input type="text" value="@product.Description" name="ProductDescription" /><br /><br />
+    <input type="text" value="@product.Price"  name="Price"/><br /><br />
+    <input type="submit" name="Submit" value="Modyfikuj"/>
+</div>
 }

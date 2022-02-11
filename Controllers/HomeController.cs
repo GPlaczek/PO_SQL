@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using PO_SQL.Models.ActionClasses;
+using System.Data.SQLite;
 
 namespace PO_SQL.Controllers
 {
@@ -33,9 +34,30 @@ namespace PO_SQL.Controllers
         {
             return View();
         }
-
-        public IActionResult ModifyProduct()
+        
+        public IActionResult ChooseProduct()
         {
+            return View();
+        }
+        
+        public IActionResult ModifyProduct(string Name, string Table)
+        {
+            if (Table != null)
+            {
+                IAction a1 = new SearchTables(Name, null, null, null, Table);
+                SQLiteDataReader data = a1.Execute();
+                if (data.Read())
+                {
+                    Product product = new Product
+                    {
+                        Name = data.GetString(0),
+                        Description = data.GetString(1),
+                        Price = data.GetFloat(2),
+                        Table = Table
+                    };
+                    ViewData["Data"] = product;
+                }
+            }
             return View();
         }
 
@@ -55,6 +77,7 @@ namespace PO_SQL.Controllers
         {
             return View();
         }
+         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

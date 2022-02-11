@@ -16,7 +16,7 @@ namespace PO_SQL.Controllers
         {
             var tabs = Request.Form["Table[]"];
             List<string> Tables = new(tabs);
-            List<string> tabNames = new List<string> ();
+            List<string> tabNames = new List<string>();
             List<string> names = new List<string>();
             List<string> description = new List<string>();
             List<float> price = new List<float>();
@@ -80,6 +80,5 @@ namespace PO_SQL.Controllers
             }
             return View();
         }
-
     }
 }

@@ -17,7 +17,7 @@ namespace PO_SQL.Models.ActionClasses
         {
             SQLiteConnection c1 = new("Data Source = Data\\database.db");
             c1.Open();
-            var command = $"CREATE table {Name} (name varchar(32), desc varchar(256), price float)";
+            var command = $"CREATE table {Name} (product_id integer primary key autoincrement, name varchar(32), desc varchar(256), price float)";
             SQLiteCommand com = new(command, c1);
             Console.WriteLine("Udało się");
             return com.ExecuteReader();

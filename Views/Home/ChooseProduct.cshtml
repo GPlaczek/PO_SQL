@@ -1,0 +1,22 @@
+﻿@using System.Data.SQLite
+@using PO_SQL.Models.ActionClasses
+@{
+    ViewData["Title"] = "Modyfikuj Produkt";
+    IAction a1 = new ListTables();
+    var tables = a1.Execute();
+}
+@using (Html.BeginForm("ModifyProduct", "Home"))
+{
+    <div class="text-center">
+        <h1 class="display-4">Wybierz produkt</h1><br />
+        <select class="text-center" name="Table" id="dropdowntable">
+            @for (int i = 0; tables.Read(); i++)
+            {
+                <option value="@tables.GetString(0)" name="Table">@tables.GetString(0)</option>
+            }
+        </select>
+        <br /><br />
+        <input type="text" placeholder="Nazwa" name="Name" /><br /><br />
+        <input type="submit" name="Submit" />
+    </div>
+}
