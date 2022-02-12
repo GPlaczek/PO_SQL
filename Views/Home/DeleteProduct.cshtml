@@ -11,7 +11,7 @@
     {
         string table = tables.GetString(0);
         DB[table] = new List<string>();
-        a2 = new ListProducts(table);
+        a2 = new SearchTables(null, null, null, null, table);
         var products = a2.Execute();
         while (products.Read())
         {

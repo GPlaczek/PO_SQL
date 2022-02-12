@@ -13,7 +13,7 @@
     <h1 class="display-4">Modyfikuj wybrany produkt</h1><br />
     <input type="text" value="@product.Name" name="ProductName" /><br /><br />
     <input type="text" value="@product.Description" name="ProductDescription" /><br /><br />
-    <input type="text" value="@product.Price"  name="Price"/><br /><br />
+    <input type="text" value="@Math.Round(product.Price,2)"  name="Price"/><br /><br />
     <input type="submit" name="Submit" value="Modyfikuj"/>
 </div>
 }
