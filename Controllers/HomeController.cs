@@ -48,15 +48,16 @@ namespace PO_SQL.Controllers
                 SQLiteDataReader data = a1.Execute();
                 if (data.Read())
                 {
-                    Product product = new Product
-                    {
-                        Name = data.GetString(0),
-                        Description = data.GetString(1),
-                        Price = data.GetFloat(2),
-                        Table = Table
-                    };
+                    Product product = new(
+                        data.GetInt32(0),
+                        data.GetString(1),
+                        data.GetString(2),
+                        data.GetFloat(3),
+                        Table
+                    );
                     ViewData["Data"] = product;
                 }
+                ViewData["Table"] = Table;
             }
             return View();
         }

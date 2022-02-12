@@ -27,9 +27,9 @@ namespace PO_SQL.Controllers
                 while (query.Read())
                 {
                     tabNames.Add(Table);
-                    names.Add(query.GetString(0));
-                    description.Add(query.GetString(1));
-                    price.Add(query.GetFloat(2));
+                    names.Add(query.GetString(1));
+                    description.Add(query.GetString(2));
+                    price.Add(query.GetFloat(3));
                 }
                 ViewData["tabNames"] = tabNames;
                 ViewData["names"] = names;

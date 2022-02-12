@@ -12,5 +12,14 @@ namespace PO_SQL.Models{
         public string Table { get; set; }
 
         public Product(){}
+
+        public Product(int Id, string Name, string Description, double Price, string Table)
+        {
+            this.Id = Id;
+            this.Name = Name;
+            this.Description = Description;
+            this.Price = Price;
+            this.Table = Table;
+        }
     }
 }

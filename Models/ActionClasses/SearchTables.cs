@@ -20,7 +20,7 @@ namespace PO_SQL.Models.ActionClasses
             SQLiteConnection c1 = new("Data Source = Data\\database.db");
             c1.Open();
             StringBuilder sb = new("");
-            sb.Append($"select name, desc, price FROM {Table} WHERE desc LIKE '%{Desc}%' ");
+            sb.Append($"select * FROM {Table} WHERE desc LIKE '%{Desc}%' ");
             if (Name != "") sb.Append($"and Name = '{this.Name}' ");
             if (PriceMin != null) sb.Append($"and Price >= {this.PriceMin} ");
             if (PriceMax != null) sb.Append($"and Price <= {this.PriceMax} ");
