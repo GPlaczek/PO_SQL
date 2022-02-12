@@ -9,7 +9,7 @@
 {
     <div class="text-center">
         <h1 class="display-4">Dodaj Produkt</h1><br />
-        <select class="text-center" name="Table" id="dropdowntipo">
+        <select class="text-center" name="Table" id="dropdowntipo" style = "width:210px">
             @for (int i = 0; tables.Read(); i++)
             {
                 <option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>

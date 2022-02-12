@@ -10,14 +10,15 @@
 {
 <div class="text-center">
     <h1 class="display-4">Usuń produkt</h1>
-    <select class="text-center" name="Table" id="dropdowntipo" style = "width:210px">
+    <br /><br />
+    <select class="text-center" name="Table" id="dropdowntipo" style="width:210px">
         @for (int i = 0; tables.Read(); i++)
         {
             <option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>
         }
     </select>
     <br /><br />
-    @Html.DropDownList("Name", new SelectList(string.Empty, "Value", "Text"), "Produkt do usunięcia", new { name="Name", style = "width:210px; text-align: center", @class = "dropdown1" })
+    @Html.DropDownList("Name", new SelectList(string.Empty, "Value", "Text"), "Produkt do usunięcia", new { name = "Name", style = "width:210px; text-align: center", @class = "dropdown1" })
     <br /><br />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
