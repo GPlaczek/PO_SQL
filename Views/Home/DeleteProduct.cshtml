@@ -5,52 +5,69 @@
     ViewData["Title"] = "Usuń produkt";
     IAction a1 = new ListTables();
     var tables = a1.Execute();
-    IAction a2;
-    Dictionary<string, List<string>> DB = new Dictionary<string, List<string>>();
-    while (tables.Read())
-    {
-        string table = tables.GetString(0);
-        DB[table] = new List<string>();
-        a2 = new SearchTables(null, null, null, null, table);
-        var products = a2.Execute();
-        while (products.Read())
-        {
-            DB[table].Add(products.GetString(0));
-        }
-    }
-    var query = ViewData["query"] as SQLiteDataReader;
-
 }
 @using (Html.BeginForm("DeleteProductResult", "DatabaseResults"))
 {
-    <div class="text-center">
-        <h1 class="display-4">Usuń produkt</h1><br />
-        <select class="text-center" name="Table" id="dropdowntable" onchange="fillProductsList()">
-            @foreach (string table in DB.Keys)
-            {
-                <option value="@table" name="TableName">@table</option>
-            }
-        </select>
-        <br /><br />
-        <!--<input type="text" value="@DB.First().Key" name="Name" id="dropdownproduct" /><br /><br />-->
-        <select class="text-center" name="Name" id="dropdownproduct2">
-            @foreach (var product in DB.First().Value)
-            {
-                <option value="@product" name="TableName">@product</option>
-            }
-        </select>
-        <br /><br />
-        <script>
-            function fillProductsList() {
-                document.getElementById("dropdownproduct").value = document.getElementById("dropdowntable").value;
-        </script>
-        <input type="submit" name="Submit" />
-    </div>
+<div class="text-center">
+    <h1 class="display-4">Usuń produkt</h1>
+    <select class="text-center" name="Table" id="dropdowntipo" style = "width:210px">
+        @for (int i = 0; tables.Read(); i++)
+        {
+            <option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>
+        }
+    </select>
+    <br /><br />
+    @Html.DropDownList("Product", new SelectList(string.Empty, "Value", "Text"), "Please select a State", new { name="Name", style = "width:210px; text-align: center", @class = "dropdown1" })
+    <br /><br />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        let output;
+        $(document).ready(function () {
+                $("#Product").empty();
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetProducts")',
+                        dataType: 'json',
+                        data: { id: $('select[name="Table"]').val() },
+                        success: function (products) {
+                            // states contains the JSON formatted list
+                            // of states passed from the controller
+                            $.each(products, function (i, product) {
+                                $("#Product").append('<option value="' + product + '">' + product + '</option>');
+                            });
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve states.' + ex);
+                        }
+                    });
+                //Dropdownlist Selectedchange event
+                $('select[name="Table"]').change(function () {
+                    $("#Product").empty();
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetProducts")',
+                        dataType: 'json',
+                        data: { id: $('select[name="Table"]').val() },
+                        success: function (products) {
+                            // states contains the JSON formatted list
+                            // of states passed from the controller
+                            $.each(products, function (i, product) {
+                                $("#Product").append('<option value="' + product + '">' + product + '</option>');
+                            });
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve states.' + ex);
+                        }
+                    });
+                return false;
+                })
+            });
+        console.log("Script worked!");
+    </script>
+
+    @*<input type="text" placeholder="Nazwa" name="Name" /><br /><br />*@
+    <input type="submit" name="Submit" />
+</div>
 }
-
-
-<!--
-
-PROBOWALEM OGARNAC COS Z TEGO LINKU ALE NARAZIE SIE NIE UDALO: https://www.c-sharpcorner.com/UploadFile/4d9083/creating-simple-cascading-dropdownlist-in-mvc-4-using-razor/
-
--->

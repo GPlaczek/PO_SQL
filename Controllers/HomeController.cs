@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PO_SQL.Models;
+using System.Data.SQLite;
+using System.Text.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,12 +10,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using PO_SQL.Models.ActionClasses;
 using System.Data.SQLite;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PO_SQL.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private IAction a1;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -68,10 +72,6 @@ namespace PO_SQL.Controllers
         }
         public IActionResult DeleteProduct()
         {
-/*            var tabs = Request.Form["Table[]"];
-            List<string> Tables = new(tabs);
-            var a1 = new SearchTables(productName, productDescription, priceMin, priceMax, Tables);
-            ViewData["query"] = a1.Execute();*/
             return View();
         }
         public IActionResult DeleteTable()
@@ -83,6 +83,19 @@ namespace PO_SQL.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public JsonResult GetProducts(string id)
+        {
+            Debug.WriteLine(id);
+            string tabName = id;
+            a1 = new SearchTables(null, null, null, null, tabName);
+            var query = a1.Execute();
+            List<string> Products = new List<string>();
+            while (query.Read())
+            {
+                Products.Add(query.GetString(1));
+            }
+            return Json(Products);
         }
     }
 }
