@@ -84,6 +84,12 @@ namespace PO_SQL.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult ImportCSV()
+        {
+            return View();
+        }
+
         public JsonResult GetProducts(string id)
         {
             Debug.WriteLine(id);

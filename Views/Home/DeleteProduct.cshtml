@@ -5,6 +5,22 @@
     ViewData["Title"] = "Usuń produkt";
     IAction a1 = new ListTables();
     var tables = a1.Execute();
+    IAction a2;
+    Dictionary<string, List<string>> DB = new Dictionary<string, List<string>>();
+    while (tables.Read())
+    {
+        string table = tables.GetString(0);
+        DB[table] = new List<string>();
+        a2 = new SearchTables(null, null, null, null, table);
+        var products = a2.Execute();
+        while (products.Read())
+        {
+            DB[table].Add(products.GetString(1));
+        }
+    }
+    var query = ViewData["query"] as SQLiteDataReader;
+
+}
 }
 @using (Html.BeginForm("DeleteProductResult", "DatabaseResults"))
 {
@@ -70,4 +86,27 @@
     @*<input type="text" placeholder="Nazwa" name="Name" /><br /><br />*@
     <input type="submit" name="Submit" />
 </div>
+<div class="text-center">
+        <h1 class="display-4">Usuń produkt</h1><br />
+        <select class="text-center" name="Table" id="dropdowntable" onchange="fillProductsList()">
+            @foreach (string table in DB.Keys)
+            {
+                <option value="@table" name="TableName">@table</option>
+            }
+        </select>
+        <br /><br />
+        <!--<input type="text" value="@DB.First().Key" name="Name" id="dropdownproduct" /><br /><br />-->
+        <select class="text-center" name="Name" id="dropdownproduct2">
+            @foreach (var product in DB.First().Value)
+            {
+                <option value="@product" name="TableName">@product</option>
+            }
+        </select>
+        <br /><br />
+        <script>
+            function fillProductsList() {
+                document.getElementById("dropdownproduct").value = document.getElementById("dropdowntable").value;
+        </script>
+        <input type="submit" name="Submit" />
+    </div>
 }
