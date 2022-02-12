@@ -15,7 +15,7 @@
         var products = a2.Execute();
         while (products.Read())
         {
-            DB[table].Add(products.GetString(0));
+            DB[table].Add(products.GetString(1));
         }
     }
     var query = ViewData["query"] as SQLiteDataReader;

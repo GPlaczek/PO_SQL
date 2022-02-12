@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PO_SQL.Models.ActionClasses;
+using PO_SQL.Models.DatabaseActionClasses;
 using System.Data.SQLite;
+using System.IO;
+using System.Diagnostics;
 
 namespace PO_SQL.Controllers
 {
@@ -78,6 +81,23 @@ namespace PO_SQL.Controllers
             {
                 ViewData["stat"] = $"Nie udało się usunąć tabeli {tableName}";
             }
+            return View();
+        }
+        public IActionResult ImportTableResult(string FileName, string TableName)
+        {
+            StreamReader sr = new(FileName);
+            a1 = new AddTable(TableName);
+            a1.Execute();
+            var line = sr.ReadLine();
+            IDatabaseAction a2;
+            while(line != null)
+            {
+                var spl = line.Split(';');
+                a2 = new AddProduct(spl[0], spl[1], spl[2], TableName);
+                a2.Execute();
+                line = sr.ReadLine();
+            }
+            sr.Close();
             return View();
         }
     }
