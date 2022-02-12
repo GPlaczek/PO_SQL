@@ -7,16 +7,64 @@
 }
 @using (Html.BeginForm("ModifyProduct", "Home"))
 {
-    <div class="text-center">
-        <h1 class="display-4">Wybierz produkt</h1><br />
-        <select class="text-center" name="Table" id="dropdowntable">
-            @for (int i = 0; tables.Read(); i++)
-            {
-                <option value="@tables.GetString(0)" name="Table">@tables.GetString(0)</option>
-            }
-        </select>
-        <br /><br />
-        <input type="text" placeholder="Nazwa" name="Name" /><br /><br />
-        <input type="submit" name="Submit" />
-    </div>
+<div class="text-center">
+    <h1 class="display-4">Modyfikuj produkt</h1>
+    <select class="text-center" name="Table" id="dropdowntipo" style="width:210px">
+        @for (int i = 0; tables.Read(); i++)
+        {
+            <option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>
+        }
+    </select>
+    <br /><br />
+    @Html.DropDownList("Name", new SelectList(string.Empty, "Value", "Text"), "Produkt do modyfikacji", new { name = "Name", style = "width:210px; text-align: center", @class = "dropdown1" })
+    <br /><br />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        let output;
+        $(document).ready(function () {
+                $("#Name").empty();
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetProducts")',
+                        dataType: 'json',
+                        data: { id: $('select[name="Table"]').val() },
+                        success: function (products) {
+                            // states contains the JSON formatted list
+                            // of states passed from the controller
+                            $.each(products, function (i, product) {
+                                $("#Name").append('<option value="' + product + '">' + product + '</option>');
+                            });
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve states.' + ex);
+                        }
+                    });
+                //Dropdownlist Selectedchange event
+                $('select[name="Table"]').change(function () {
+                    $("#Name").empty();
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetProducts")',
+                        dataType: 'json',
+                        data: { id: $('select[name="Table"]').val() },
+                        success: function (products) {
+                            // states contains the JSON formatted list
+                            // of states passed from the controller
+                            $.each(products, function (i, product) {
+                                $("#Name").append('<option value="' + product + '">' + product + '</option>');
+                            });
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve states.' + ex);
+                        }
+                    });
+                return false;
+                })
+            });
+        console.log("Script worked!");
+    </script>
+    <input type="submit" name="Submit" />
+</div>
 }
