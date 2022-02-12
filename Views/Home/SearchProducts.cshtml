@@ -13,17 +13,18 @@
     <style>
         charset "UTF-8";
         * {
-          box-sizing: border-box;
+            box-sizing: border-box;
         }
 
         .dropdown {
             margin: 0 auto;
-            text-align:left;
+            text-align: left;
             width: 210px;
             font-size: 14px;
             justify-content: left;
             color: #333;
         }
+
             .dropdown .dropdown-list {
                 padding: 12px;
                 background: #fff;
@@ -38,12 +39,14 @@
                 max-height: 66vh;
                 overflow-y: scroll;
             }
+
             .dropdown .dropdown-option {
                 display: block;
                 padding: 8px 12px;
                 opacity: 0;
                 transition: opacity 0.15s ease-in-out;
             }
+
             .dropdown .dropdown-label {
                 display: block;
                 height: 30px;
@@ -53,23 +56,27 @@
                 line-height: 1;
                 cursor: pointer;
             }
+
                 .dropdown .dropdown-label:before {
                     content: "▼";
                     float: right;
                 }
+
             .dropdown.on .dropdown-list {
                 transform: scale(1, 1);
                 transition-delay: 0s;
             }
+
                 .dropdown.on .dropdown-list .dropdown-option {
                     opacity: 1;
                     transition-delay: 0.2s;
                 }
-        .dropdown.on .dropdown-label:before {
-          content: "▲";
-        }
+
+            .dropdown.on .dropdown-label:before {
+                content: "▲";
+            }
+
             .dropdown [type=checkbox] {
-                
                 top: -1px;
                 margin-right: 4px;
             }
@@ -91,7 +98,14 @@
             }
         </div>
     </div>
-
+    <br />
+    <input type="text" placeholder="Nazwa" name="productName" /><br /><br />
+    <input type="text" placeholder="Fragment opisu" name="productDescription" /><br /><br />
+    Cena: od
+    <input type="text" name="priceMin" style="width:60px" />
+    do
+    <input type="text" name="priceMax" style="width:60px" /><br /><br />
+    <input type="submit" name="Submit" disabled />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
     <script id="rendered-js">
@@ -134,7 +148,11 @@
 
                 if (checked.length <= 0) {
                     this.$label.html('Select Options');
-                } else
+                    $('input[name="Submit"]').attr('disabled', 'disabled');
+                    console.log($('input[name="Submit"]').disabled);
+                } else {
+                    $('input[name="Submit"]').removeAttr('disabled');
+                    console.log($('input[name="Submit"]').disabled);
                     if (checked.length === 1) {
                         this.$label.html(checked.parent('label').text());
                     } else
@@ -145,6 +163,7 @@
                         } else {
                             this.$label.html(checked.length + ' Selected');
                         }
+                }
             };
 
             CheckboxDropdown.prototype.onCheckAll = function (checkAll) {
@@ -185,14 +204,9 @@
                 new CheckboxDropdown(checkboxesDropdowns[i]);
             } window.CP.exitedLoop(0);
         })(jQuery);
-//# sourceURL=pen.js
     </script>
-    <br />
-    <input type="text" placeholder="Nazwa" name="productName" /><br /><br />
-    <input type="text" placeholder="Fragment opisu" name="productDescription" /><br /><br />
-    Cena: od
-    <input type="text" name="priceMin" style="width:60px" />
-    do
-    <input type="text" name="priceMax" style="width:60px" /><br /><br />
-    <input type="submit" name="Submit" />
+    <script>
+        let checked = document
+        
+    </script>
 </div>}
