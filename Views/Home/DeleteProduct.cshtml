@@ -20,50 +20,58 @@
     <br /><br />
     @Html.DropDownList("Name", new SelectList(string.Empty, "Value", "Text"), "Produkt do usunięcia", new { name = "Name", style = "width:210px; text-align: center", @class = "dropdown1" })
     <br /><br />
+    Opis:
+    <p id="desc" name="desc">Fragment opisu</p>
+    Cena:
+    <p id="price" name="price">Cena produktu</p>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript">
+        var data;
+
+        function getProduct() {
+            $("#Name").empty();
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetProducts")',
+                        dataType: 'json',
+                        data: { id: $('select[name="Table"]').val() },
+                        success: function (products) {
+                            data = products;
+                            $("#desc").text('Fragment opisu');
+                            $("#price").text('Cena produktu');
+                            // states contains the JSON formatted list
+                            // of states passed from the controller
+                            $.each(products, function (i, product) {
+                                $("#Name").append('<option value="' + i + '">' + product['name'] + '</option>');
+                                refreshDesc();
+                            });
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve states.' + ex);
+                        }
+                    });
+        }
+        function refreshDesc() {
+            let val = $('#Name').val();
+            let product = data[val];
+            console.log(product);
+            $("#desc").text(product['desc']);
+            $("#price").text(product['price']);
+        }
+
         $(document).ready(function () {
-                $("#Name").empty();
-                    $.ajax({
-                        type: 'POST',
-                        url: '@Url.Action("GetProducts")',
-                        dataType: 'json',
-                        data: { id: $('select[name="Table"]').val() },
-                        success: function (products) {
-                            // states contains the JSON formatted list
-                            // of states passed from the controller
-                            $.each(products, function (i, product) {
-                                $("#Name").append('<option value="' + i + '">' + product + '</option>');
-                            });
-                        },
-                        error: function (ex) {
-                            alert('Failed to retrieve states.' + ex);
-                        }
-                    });
-                //Dropdownlist Selectedchange event
-                $('select[name="Table"]').change(function () {
-                    $("#Name").empty();
-                    $.ajax({
-                        type: 'POST',
-                        url: '@Url.Action("GetProducts")',
-                        dataType: 'json',
-                        data: { id: $('select[name="Table"]').val() },
-                        success: function (products) {
-                            // states contains the JSON formatted list
-                            // of states passed from the controller
-                            $.each(products, function (i, product) {
-                                $("#Name").append('<option value="' + i + '">' + product + '</option>');
-                            });
-                        },
-                        error: function (ex) {
-                            alert('Failed to retrieve states.' + ex);
-                        }
-                    });
+            getProduct();
+            //Dropdownlist Selectedchange event
+            $('select[name="Table"]').change(function () {
+                getProduct();
                 return false;
-                })
-            });
+            })
+            $('#Name').change(function () {
+                refreshDesc();
+            })
+        });
     </script>
     <input type="submit" name="Submit" />
 </div>

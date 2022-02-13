@@ -96,11 +96,15 @@ namespace PO_SQL.Controllers
             string tabName = id;
             a1 = new SearchTables(null, null, null, null, tabName);
             var query = a1.Execute();
-            Dictionary<float, string> Products = new Dictionary<float, string>();
+            Dictionary<float, Dictionary<string, string>> Products = new Dictionary<float, Dictionary<string, string>>();
             while (query.Read())
             {
+                Dictionary<string, string> ProductDesc = new Dictionary<string, string>();
                 Debug.WriteLine(query.GetString(1));
-                Products.Add(query.GetFloat(0), query.GetString(1)); // product_id, product_name
+                ProductDesc.Add("name", query.GetString(1));
+                ProductDesc.Add("desc", query.GetString(2).Substring(0,5));
+                ProductDesc.Add("price", query.GetFloat(3).ToString());
+                Products.Add(query.GetFloat(0), ProductDesc); // product_id, product_name + part_of_decription + price
             }
             return Json(Products);
         }
