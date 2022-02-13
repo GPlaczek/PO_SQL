@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PO_SQL.Models.DatabaseActionClasses;
 using PO_SQL.Models.ActionClasses;
+using System.Diagnostics;
 
 namespace PO_SQL.Controllers
 {
@@ -26,8 +27,9 @@ namespace PO_SQL.Controllers
             }
             return View();
         }
-        public IActionResult DeleteProductResult(string Name, string Table)
+        public IActionResult DeleteProductResult(int Name, string Table)
         {
+            Debug.WriteLine(Name);
             if (Table != null)
             {
                 a1 = new DeleteProduct(Name, Table);

@@ -31,6 +31,7 @@
         var data = {};
 
         function check_if_not_empty() {
+            console.log(Object.keys(data).length);
             if (Object.keys(data).length <= 0) {
                 $('input[name="Submit"]').attr('disabled', 'disabled');
             } else {
@@ -54,8 +55,8 @@
                             $.each(products, function (i, product) {
                                 $("#Name").append('<option value="' + i + '">' + product['name'] + '</option>');
                                 refreshDesc();
-                                check_if_not_empty();
                             });
+                            check_if_not_empty();
                         },
                         error: function (ex) {
                             alert('Failed to retrieve states.' + ex);
@@ -74,6 +75,7 @@
             getProduct();
             //Dropdownlist Selectedchange event
             $('select[name="Table"]').change(function () {
+                data = {};
                 getProduct();
             })
             $('#Name').change(function () {
