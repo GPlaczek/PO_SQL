@@ -30,6 +30,7 @@ namespace PO_SQL.Models.DatabaseActionClasses
             Debug.WriteLine(command);
             SQLiteCommand com = new(command, c1);
             com.ExecuteNonQuery();
+            c1.Close();
         }
     }
 }

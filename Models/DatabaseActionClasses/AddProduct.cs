@@ -26,6 +26,7 @@ namespace PO_SQL.Models.DatabaseActionClasses
             var command = $"INSERT into {Table} (name, desc, price) VALUES ('{Name}', '{Desc}', {Price})";
             SQLiteCommand com = new(command, c1);
             com.ExecuteNonQuery();
+            c1.Close();
         }
     }
 }

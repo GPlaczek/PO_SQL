@@ -9,18 +9,23 @@ namespace PO_SQL.Models.ActionClasses
     public class AddTable : IAction
     {
         public string Name { get; set; }
+        private SQLiteConnection c1;
         public AddTable(string Name)
         {
             this.Name = Name.ToLower();
         }
         public SQLiteDataReader Execute()
         {
-            SQLiteConnection c1 = new("Data Source = Data\\database.db");
+            c1 = new("Data Source = Data\\database.db");
             c1.Open();
             var command = $"CREATE table {Name} (product_id integer primary key autoincrement, name varchar(32), desc varchar(256), price float)";
             SQLiteCommand com = new(command, c1);
             Console.WriteLine("Udało się");
             return com.ExecuteReader();
+        }
+        public void CloseConnection()
+        {
+            c1.Close();
         }
     }
 }

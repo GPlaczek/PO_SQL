@@ -23,6 +23,7 @@ namespace PO_SQL.Models.DatabaseActionClasses
             var command = $"DELETE FROM {this.Table} WHERE product_id={this.Id}";
             SQLiteCommand com = new(command, c1);
             com.ExecuteNonQuery();
+            c1.Close();
         }
     }
 }

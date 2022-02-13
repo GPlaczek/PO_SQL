@@ -16,6 +16,9 @@
             <option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>
         }
     </select>
+    @{
+        a1.CloseConnection();
+    } 
     <br /><br />
     @Html.DropDownList("Name", new SelectList(string.Empty, "Value", "Text"), "Produkt do modyfikacji", new { name = "Name", style = "width:210px; text-align: center", @class = "dropdown1" })
     <br /><br />

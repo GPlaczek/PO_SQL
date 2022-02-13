@@ -48,20 +48,22 @@ namespace PO_SQL.Controllers
         {
             if (Table != null)
             {
-                a1 = new SearchTables(Name, null, null, null, Table);
-                SQLiteDataReader data = a1.Execute();
-                if (data.Read())
-                {
-                    Product product = new(
-                        data.GetInt32(0),
-                        data.GetString(1),
-                        data.GetString(2),
-                        data.GetFloat(3),
-                        Table
-                    );
-                    ViewData["Data"] = product;
-                }
-                ViewData["Table"] = Table;
+                // jakies czary sie tu dzieja
+                SQLiteConnection c1 = new("Data Source = Data\\database.db");
+                c1.Open();
+                var command = $"SELECT * FROM {Table} WHERE product_id={Convert.ToInt32(Name)}";
+                SQLiteCommand com = new(command, c1);
+                SQLiteDataReader data = com.ExecuteReader();
+                data.Read();
+                Product product = new(
+                    data.GetInt32(0),
+                    data.GetString(1),
+                    data.GetString(2),
+                    data.GetFloat(3),
+                    Table
+                );
+                c1.Close();
+                ViewData["Data"] = product;
             }
             return View();
         }

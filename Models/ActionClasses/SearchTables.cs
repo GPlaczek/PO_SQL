@@ -15,9 +15,11 @@ namespace PO_SQL.Models.ActionClasses
         private float? PriceMin { get; }
         private float? PriceMax { get; }
         private string Table { get; }
+
+        private SQLiteConnection c1;
         public SQLiteDataReader Execute()
         {
-            SQLiteConnection c1 = new("Data Source = Data\\database.db");
+            c1 = new("Data Source = Data\\database.db");
             c1.Open();
             StringBuilder sb = new($"select * FROM {Table} WHERE desc LIKE '%{Desc}%' ");
             if (Name != "") sb.Append($"and Name = '{this.Name}' ");
@@ -37,6 +39,10 @@ namespace PO_SQL.Models.ActionClasses
             if (max == null) this.PriceMax = 1000000000;
             else this.PriceMax = max;
             this.Table = Table;
+        }
+        public void CloseConnection()
+        {
+            c1.Close();
         }
     }
 }

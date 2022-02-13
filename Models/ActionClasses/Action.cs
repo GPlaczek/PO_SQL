@@ -9,5 +9,6 @@ namespace PO_SQL.Models.ActionClasses
     public interface IAction
     {
         public SQLiteDataReader Execute();
+        public void CloseConnection();
     }
 }
