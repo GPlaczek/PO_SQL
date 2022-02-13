@@ -105,6 +105,7 @@ namespace PO_SQL.Controllers
                 {
                     while (line != null)
                     {
+                        line = line.Replace("\"", "");
                         var spl = line.Split(';');
                         if (spl.Length != 3) throw new InvalidDataException();
                         a2 = new AddProduct(spl[0], spl[1], spl[2], TableName);
@@ -123,6 +124,26 @@ namespace PO_SQL.Controllers
                 s1.Close();
             }
             return View();
+        }
+        public async Task<IActionResult> ExportTableResultAsync(string TableName)
+        {
+            var path = Path.Combine(wwwrootDirectory, TableName + ".csv");
+            StreamWriter w1 = new(path);
+            a1 = new SearchTables(null, null, null, null, TableName);
+            var r1 = a1.Execute();
+            while (r1.Read())
+            {
+                w1.WriteLine(r1.GetString(1) + ";" + r1.GetString(2) + ";" + r1.GetFloat(3));
+            }
+            w1.Close();
+            var mem = new MemoryStream();
+            using(var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(mem);
+            }
+            mem.Position = 0;
+            var ContentType = "text/plain";
+            return File(mem, ContentType, TableName+".csv");
         }
     }
 }

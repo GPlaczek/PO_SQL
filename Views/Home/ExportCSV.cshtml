@@ -1,0 +1,17 @@
+﻿@using System.Data.SQLite
+@using PO_SQL.Models.ActionClasses
+@{ ViewData["Title"] = "Eksportuj tabelę";
+                IAction a1 = new ListTables();
+                var tables = a1.Execute(); }
+@using (Html.BeginForm("ExportTableResult", "Results"))
+{
+<div class="text-center">
+    <h1 class="display-4">Eksportuj tabelę</h1><br />
+    <select class="text-center" name="TableName" id="dropdowntipo" style="width:210px">
+        @for (int i = 0; tables.Read(); i++)
+        {
+<option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>}
+    </select>
+    <br /><br />
+    <input type="submit" name="Submit" />
+</div>}

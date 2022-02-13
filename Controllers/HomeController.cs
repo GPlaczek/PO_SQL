@@ -91,6 +91,10 @@ namespace PO_SQL.Controllers
         {
             return View();
         }
+        public IActionResult ExportCSV()
+        {
+            return View();
+        }
 
         public JsonResult GetProducts(string id)
         {
