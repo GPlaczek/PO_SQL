@@ -48,7 +48,7 @@ namespace PO_SQL.Controllers
         {
             if (Table != null)
             {
-                IAction a1 = new SearchTables(Name, null, null, null, Table);
+                a1 = new SearchTables(Name, null, null, null, Table);
                 SQLiteDataReader data = a1.Execute();
                 if (data.Read())
                 {

@@ -8,10 +8,10 @@ namespace PO_SQL.Models.DatabaseActionClasses
 {
     public class AddProduct : IDatabaseAction
     {
-        public string Name { get; set; }
-        public string Desc { get; set; }
-        public string Price { get; set; }
-        public string Table { get; set; }
+        private string Name { get; }
+        private string Desc { get; }
+        private string Price { get; }
+        private string Table { get; }
         public AddProduct(string Name, string Desc, string Price, string Table)
         {
             this.Name = Name.ToLower();
