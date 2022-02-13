@@ -9,8 +9,8 @@ namespace PO_SQL.Models.DatabaseActionClasses
 {
     public class DeleteProduct : IDatabaseAction
     {
-        private int Id { get; set; }
-        private string Table { get; set; }
+        public int Id { get; set; }
+        public string Table { get; set; }
         public DeleteProduct(int Id, string Table)
         {
             this.Id = Id;
@@ -21,7 +21,6 @@ namespace PO_SQL.Models.DatabaseActionClasses
             SQLiteConnection c1 = new("Data Source = Data\\database.db");
             c1.Open();
             var command = $"DELETE FROM {this.Table} WHERE product_id={this.Id}";
-            Debug.WriteLine(command);
             SQLiteCommand com = new(command, c1);
             com.ExecuteNonQuery();
         }

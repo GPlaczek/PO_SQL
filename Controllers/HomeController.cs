@@ -96,11 +96,10 @@ namespace PO_SQL.Controllers
             string tabName = id;
             a1 = new SearchTables(null, null, null, null, tabName);
             var query = a1.Execute();
-            Dictionary<float, string> Products = new Dictionary<float, string>();
+            Dictionary<int, string> Products = new();
             while (query.Read())
             {
-                Debug.WriteLine(query.GetString(1));
-                Products.Add(query.GetFloat(0), query.GetString(1)); // product_id, product_name
+                Products.Add(query.GetInt32(0), query.GetString(1)); // product_id, product_name
             }
             return Json(Products);
         }
