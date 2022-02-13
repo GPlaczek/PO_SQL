@@ -26,11 +26,11 @@ namespace PO_SQL.Controllers
             }
             return View();
         }
-        public IActionResult DeleteProductResult(string Name, string Table)
+        public IActionResult DeleteProductResult(int Id, string Table)
         {
             if (Table != null)
             {
-                a1 = new DeleteProduct(Name, Table);
+                a1 = new DeleteProduct(Id, Table);
                 a1.Execute();
                 ViewData["stat"] = "Udało się usunąć produkt";
             }
