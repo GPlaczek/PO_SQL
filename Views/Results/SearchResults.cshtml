@@ -5,6 +5,7 @@
     var names = ViewData["names"] as List<string>;
     var description = ViewData["description"] as List<string>;
     var price = ViewData["price"] as List<float>;
+    ViewData["title"] = "Przeszukaj produkty";
     }
 
     @model IEnumerable<PO_SQL.Models.Product>

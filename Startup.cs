@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
+using System.Globalization;
 
 namespace PO_SQL
 {
@@ -16,6 +18,7 @@ namespace PO_SQL
     {
         public Startup(IConfiguration configuration)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             Configuration = configuration;
         }
 
@@ -31,6 +34,10 @@ namespace PO_SQL
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var cultureInfo = new CultureInfo("en-US");
+
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
