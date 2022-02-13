@@ -23,7 +23,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript">
-        let output;
         $(document).ready(function () {
                 $("#Name").empty();
                     $.ajax({
@@ -35,7 +34,7 @@
                             // states contains the JSON formatted list
                             // of states passed from the controller
                             $.each(products, function (i, product) {
-                                $("#Name").append('<option value="' + product + '">' + product + '</option>');
+                                $("#Name").append('<option value="' + i + '">' + product + '</option>');
                             });
                         },
                         error: function (ex) {
@@ -54,7 +53,7 @@
                             // states contains the JSON formatted list
                             // of states passed from the controller
                             $.each(products, function (i, product) {
-                                $("#Name").append('<option value="' + product + '">' + product + '</option>');
+                                $("#Name").append('<option value="' + i + '">' + product + '</option>');
                             });
                         },
                         error: function (ex) {
@@ -64,7 +63,6 @@
                 return false;
                 })
             });
-        console.log("Script worked!");
     </script>
     <input type="submit" name="Submit" />
 </div>
