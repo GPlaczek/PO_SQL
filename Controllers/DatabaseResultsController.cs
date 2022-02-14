@@ -75,7 +75,6 @@ namespace PO_SQL.Controllers
             if(Table != null)
             {
                 success = ValidPrice(ref Price);
-                
             }
             if (success)
             {

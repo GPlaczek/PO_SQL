@@ -22,7 +22,6 @@ namespace PO_SQL.Models.ActionClasses
             c1.Open();
             var command = $"DROP table {Name}";
             SQLiteCommand com = new(command, c1);
-            Console.WriteLine("Udało się");
             return com.ExecuteReader();
         }
         public void CloseConnection()

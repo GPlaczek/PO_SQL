@@ -9,7 +9,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using PO_SQL.Models.ActionClasses;
-using System.Data.SQLite;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PO_SQL.Controllers
@@ -48,7 +47,6 @@ namespace PO_SQL.Controllers
         {
             if (Table != null)
             {
-                // jakies czary sie tu dzieja
                 SQLiteConnection c1 = new("Data Source = Data\\database.db");
                 c1.Open();
                 var command = $"SELECT * FROM {Table} WHERE product_id={Convert.ToInt32(Name)}";

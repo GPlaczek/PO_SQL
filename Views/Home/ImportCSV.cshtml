@@ -1,7 +1,7 @@
 ﻿@{ ViewData["Title"] = "Importuj tabelę"; }
 
 <div class="text-center">
-    <h1 class="display-4">Importuj bazę danych z pliku csv</h1><br />
+    <h1 class="display-4">Importuj tabelę z pliku csv</h1><br />
 
     @using (Html.BeginForm("ImportTableResult", "Results", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {

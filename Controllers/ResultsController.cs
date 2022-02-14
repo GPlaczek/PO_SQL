@@ -71,13 +71,6 @@ namespace PO_SQL.Controllers
             }
             return View();
         }
-        public IActionResult ModifyResult(string productName, string productDescription, string price)
-        {
-            ViewData["ProductName"] = productName;
-            ViewData["ProductDescription"] = productDescription;
-            ViewData["Price"] = price;
-            return View();
-        }
         public IActionResult AddTableResult(string tableName)
         {
             tableName = tableName.ToLower();
