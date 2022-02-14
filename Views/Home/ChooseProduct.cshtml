@@ -58,7 +58,6 @@
                             // of states passed from the controller
                             $.each(products, function (i, product) {
                                 $("#Name").append('<option value="' + i + '">' + product['name'] + '</option>');
-
                             });
                             refreshDesc();
                             check_if_not_empty();
@@ -72,9 +71,9 @@
             let val = $('#Name').val();
             let product = data[val];
             console.log(product);
-            $('input[name=Id]').attr('value', product['name'])
-            $('input[name=Desc]').attr('value', product['desc'])
-            $('input[name=Price]').attr('value', product['price'])
+            $('input[name=Id]').val(product['name'])
+            $('input[name=Desc]').val(product['desc'])
+            $('input[name=Price]').val(product['price'])
         }
 
         $(document).ready(function () {
