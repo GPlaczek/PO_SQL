@@ -108,8 +108,7 @@ namespace PO_SQL.Controllers
                 Dictionary<string, string> ProductDesc = new Dictionary<string, string>();
                 Debug.WriteLine(query.GetString(1));
                 ProductDesc.Add("name", query.GetString(1));
-                string desc = query.GetString(2);
-                ProductDesc.Add("desc", desc.Substring(0,Math.Min(5, desc.Length)));
+                ProductDesc.Add("desc", query.GetString(2));
                 ProductDesc.Add("price", query.GetFloat(3).ToString());
                 Products.Add(query.GetInt32(0), ProductDesc); // product_id, product_name + part_of_decription + price
             }
