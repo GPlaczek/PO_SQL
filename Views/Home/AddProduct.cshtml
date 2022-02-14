@@ -14,10 +14,10 @@
             {
                 <option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>
             }
-        </select><br/><br/>
+        </select><br/><br/>@{a1.CloseConnection();}
         <input type="text" placeholder="Nazwa" name="Name" /><br /><br />
         <input type="text" placeholder="Fragment opisu" name="Desc" /><br /><br />
         <input type="text" name="Price" placeholder="Cena" /><br /><br />
-        <input type="submit" name="Submit" />
+        <input type="submit" name="Submit" value="Dodaj"/>
     </div>
 }

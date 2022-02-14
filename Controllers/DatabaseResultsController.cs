@@ -16,7 +16,26 @@ namespace PO_SQL.Controllers
         [HttpPost]
         public IActionResult AddProductResult(string Name, string Desc, string Price, string Table)
         {
-            if (Table != null) 
+            bool success = false;
+            if (Table != null)
+            {
+                try
+                {
+                    string[] Digits;
+                    if (int.TryParse(Price, out int _) && Price.Split(".")[1].Length <= 2)
+                    {
+                        success = true;
+                    }
+                    else
+                    {
+                        Digits = Price.Split(",");
+                        if (Digits[1].Length <= 2) success = true;
+                        Price = Digits[0] + "." + Digits[1];
+                    }
+                }
+                catch { }
+            }
+            if (success)
             {
                 a1 = new AddProduct(Name, Desc, Price, Table);
                 a1.Execute();
@@ -25,7 +44,7 @@ namespace PO_SQL.Controllers
             else
             {
                 ViewData["stat"] = "Nie udało się dodać produktu";
-            }
+            } 
             return View();
         }
         public IActionResult DeleteProductResult(int Name, string Table)

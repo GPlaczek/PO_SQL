@@ -9,17 +9,15 @@
 {
 <div class="text-center">
     <h1 class="display-4">Modyfikuj produkt</h1>
-    <br /><br />
+    <br />
     <select class="text-center" name="Table" id="dropdowntipo" style="width:210px">
         @for (int i = 0; tables.Read(); i++)
         {
             <option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>
         }
     </select>
-    @{
-        a1.CloseConnection();
-    } 
     <br /><br />
+    @{a1.CloseConnection();}
     @Html.DropDownList("Name", new SelectList(string.Empty, "Value", "Text"), "Produkt do modyfikacji", new { name = "Name", style = "width:210px; text-align: center", @class = "dropdown1" })
     <br /><br />
     Opis:
@@ -86,6 +84,6 @@
             })
         });
     </script>
-    <input type="submit" name="Submit" />
+    <input type="submit" name="Submit" value="Modyfikuj" />
 </div>
 }

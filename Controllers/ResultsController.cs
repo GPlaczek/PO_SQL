@@ -17,29 +17,68 @@ namespace PO_SQL.Controllers
         private readonly string wwwrootDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
         private IAction a1;
         [HttpPost]
-        public IActionResult SearchResults(string productName, string productDescription, float? priceMin, float? priceMax)
+        public IActionResult SearchResults(string productName, string productDescription, string priceMin, string priceMax)
         {
+            bool success = false;
             var tabs = Request.Form["Table[]"];
             List<string> Tables = new(tabs);
             List<string> tabNames = new();
             List<string> names = new();
             List<string> description = new();
             List<float> price = new();
-            foreach (string Table in Tables)
+            float priceMinValid=0, priceMaxValid=1000000000;
+            if (!float.TryParse(priceMin, out priceMinValid) || !float.TryParse(priceMax, out priceMaxValid))
             {
-                a1 = new SearchTables(productName, productDescription, priceMin, priceMax, Table);
-                var query = a1.Execute();
-                while (query.Read())
+                // DO POPRAWKI
+                try
                 {
-                    tabNames.Add(Table);
-                    names.Add(query.GetString(1));
-                    description.Add(query.GetString(2));
-                    price.Add(query.GetFloat(3));
+                    if (priceMin == null && priceMax == null) success = true;
+                    else if (priceMin == null)
+                    {
+                        string[] digitsMax = priceMax.Split(",");
+                        priceMaxValid = float.Parse(digitsMax[0] + "." + digitsMax[1]);
+                        success = true;
+                    }
+                    else if (priceMax == null)
+                    {
+                        string[] digitsMin = priceMin.Split(",");
+                        priceMinValid = float.Parse(digitsMin[0] + "." + digitsMin[1]);
+                        success = true;
+                    }
+                    else
+                    {
+                        string[] digitsMax = priceMax.Split(",");
+                        priceMaxValid = float.Parse(digitsMax[0] + "." + digitsMax[1]);
+                        string[] digitsMin = priceMin.Split(",");
+                        priceMinValid = float.Parse(digitsMin[0] + "." + digitsMin[1]);
+                        success = true;
+                    }
                 }
-                ViewData["tabNames"] = tabNames;
-                ViewData["names"] = names;
-                ViewData["description"] = description;
-                ViewData["price"] = price;
+                catch { }
+            }
+            else
+            { 
+                success = true;  
+            }
+            if (success)
+            {
+                foreach (string Table in Tables)
+                {
+                    a1 = new SearchTables(productName, productDescription, priceMinValid, priceMaxValid, Table);
+                    var query = a1.Execute();
+                    while (query.Read())
+                    {
+                        tabNames.Add(Table);
+                        names.Add(query.GetString(1));
+                        description.Add(query.GetString(2));
+                        price.Add(query.GetFloat(3));
+                    }
+                    a1.CloseConnection();
+                    ViewData["tabNames"] = tabNames;
+                    ViewData["names"] = names;
+                    ViewData["description"] = description;
+                    ViewData["price"] = price;
+                }
             }
             return View();
         }
@@ -57,6 +96,7 @@ namespace PO_SQL.Controllers
             try
             {
                 a1.Execute();
+                a1.CloseConnection();
                 ViewData["stat"] = $"Udało się utworzyć tabelę {tableName}";
             }
             catch
@@ -76,7 +116,8 @@ namespace PO_SQL.Controllers
             a1 = new DeleteTable(tableName);
             try
             {
-                a1.Execute();
+                a1.Execute(); 
+                a1.CloseConnection();
                 ViewData["stat"] = $"Udało się usunąć tabelę {tableName}";
             }
             catch
@@ -98,6 +139,7 @@ namespace PO_SQL.Controllers
                 }
                 a1 = new AddTable(TableName);
                 a1.Execute();
+                a1.CloseConnection();
                 StreamReader s1 = new(path);
                 var line = s1.ReadLine();
                 IDatabaseAction a2;
@@ -122,6 +164,7 @@ namespace PO_SQL.Controllers
                     s1.Close();
                 }
                 s1.Close();
+                
             }
             return View();
         }
@@ -136,6 +179,7 @@ namespace PO_SQL.Controllers
                 w1.WriteLine(r1.GetString(1) + ";" + r1.GetString(2) + ";" + r1.GetFloat(3));
             }
             w1.Close();
+            a1.CloseConnection();
             var mem = new MemoryStream();
             using(var stream = new FileStream(path, FileMode.Open))
             {

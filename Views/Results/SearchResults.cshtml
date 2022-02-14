@@ -13,7 +13,9 @@
     @{
         ViewBag.Title = "Index";
     }
-    <div class="text-center">
+<div class="text-center">
+    @if (names != null)
+    {
         <h1 class="display-4">Wynik przeszukania</h1><br />
         <table class="table table-bordered table-hover" style="width:100%">
             <tr class="table-active">
@@ -22,7 +24,7 @@
                 <th>Opis</th>
                 <th>Cena</th>
             </tr>
-            @for (int i=0; i<tabNames.Count; i++)
+            @for (int i = 0; i < tabNames.Count; i++)
             {
                 <tr>
                     <td>@tabNames[i]</td>
@@ -32,4 +34,9 @@
                 </tr>
             }
         </table>
-    </div>
+    }
+    else
+    {
+        <h1 class="display-4">Format danych wejściowych jest niepoprawny</h1><br />
+    }
+</div>

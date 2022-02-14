@@ -6,12 +6,12 @@
     @using (Html.BeginForm("ImportTableResult", "Results", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <input type="text" name="TableName" placeholder="Nazwa tabeli" /> <br /><br />
-        <div class="row">
+        <div class="row" style="margin-left: 9.5cm;">
             <div class="form-group col-md-6">
-                <input type="file" class="form-control" name="FileName" />
+                <input type="file" class="form-control" name="FileName" style="text-align: center;"/>
             </div>
 
         </div>
-        <input type="submit" name="Submit" />
+        <input type="submit" name="Submit" value="Importuj"/>
     }   
-    </div>
+</div>
