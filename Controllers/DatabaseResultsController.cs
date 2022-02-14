@@ -14,27 +14,32 @@ namespace PO_SQL.Controllers
     {
         private IDatabaseAction a1;
         [HttpPost]
+        public bool ValidPrice(ref string Price)
+        {
+            try
+            {
+                if (int.TryParse(Price, out var result)) return true;
+                else if (float.TryParse(Price, out var result2))
+                {
+                    if (Price.IndexOf(".") >= 0 && Price.Split(".")[1].Length <= 2) return true;
+                    else if (Price.IndexOf(",") >= 0 && Price.Split(",")[1].Length <= 2)
+                    {
+                        string[] Digits;
+                        Digits = Price.Split(",");
+                        Price = Digits[0] + "." + Digits[1];
+                        return true;
+                    }
+                }
+            }
+            catch {  }
+            return false;
+        }
         public IActionResult AddProductResult(string Name, string Desc, string Price, string Table)
         {
             bool success = false;
             if (Table != null)
             {
-                try
-                {
-                    if (int.TryParse(Price, out var result)) success = true;
-                    else if (float.TryParse(Price, out var result2))
-                    {
-                        if(Price.IndexOf(".") >= 0 && Price.Split(".")[1].Length <= 2) success = true;
-                        else if(Price.IndexOf(",") >= 0 && Price.Split(",")[1].Length <= 2)
-                        {
-                            string[] Digits;
-                            Digits = Price.Split(",");
-                            Price = Digits[0] + "." + Digits[1];
-                            success = true;
-                        }
-                    }
-                }
-                catch { }
+                success = ValidPrice(ref Price);
             }
             if (success)
             {
@@ -45,7 +50,7 @@ namespace PO_SQL.Controllers
             else
             {
                 ViewData["stat"] = "Nie udało się dodać produktu";
-            } 
+            }
             return View();
         }
         public IActionResult DeleteProductResult(int Name, string Table)
@@ -64,11 +69,17 @@ namespace PO_SQL.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult ModifyResult(int Name, string Id, string Desc, float Price, string Table)
+        public IActionResult ModifyResult(int Name, string Id, string Desc, string Price, string Table)
         {
+            bool success = false;
             if(Table != null)
             {
-                a1 = new ModifyProduct(Name, Id, Desc, Price, Table);
+                success = ValidPrice(ref Price);
+                
+            }
+            if (success)
+            {
+                a1 = new ModifyProduct(Name, Id, Desc, float.Parse(Price), Table);
                 a1.Execute();
                 ViewData["stat"] = "Udało się zmodyfikować produkt";
             }
