@@ -35,7 +35,11 @@
 
         function check_if_not_empty() {
             console.log(Object.keys(data).length);
-            if (Object.keys(data).length <= 0) {
+            if (Object.keys(data).length <= 0 ||
+                $('input[name=Id]').val() === '' ||
+                $('input[name=Desc]').val() === '' ||
+                $('input[name=Price]').val() === '')
+            {
                 $('input[name="Submit"]').attr('disabled', 'disabled');
             } else {
                 $('input[name="Submit"]').removeAttr('disabled');
@@ -85,6 +89,15 @@
             })
             $('#Name').change(function () {
                 refreshDesc();
+            })
+            $('input[name=Id]').change(function () {
+                check_if_not_empty();
+            })
+            $('input[name=Desc]').change(function () {
+                check_if_not_empty();
+            })
+            $('input[name=Price]').change(function () {
+                check_if_not_empty();
             })
         });
     </script>
