@@ -79,11 +79,11 @@ namespace PO_SQL.Controllers
             {
                 a1.Execute();
                 a1.CloseConnection();
-                ViewData["stat"] = $"Udało się utworzyć tabelę {tableName}";
+                ViewData["stat"] = $"Udało się utworzyć sklep {tableName}";
             }
             catch
             {
-                ViewData["stat"] = $"Nie udało się utworzyć tabeli {tableName}";
+                ViewData["stat"] = $"Nie udało się utworzyć sklepu {tableName}";
             }
             return View();
         }
@@ -91,7 +91,7 @@ namespace PO_SQL.Controllers
         {
             if (tableName == null)
             {
-                ViewData["stat"] = "Brak tabel w bazie danych";
+                ViewData["stat"] = "Brak sklepów w bazie danych";
                 return View();
             }
             tableName = tableName.ToLower();
@@ -100,11 +100,11 @@ namespace PO_SQL.Controllers
             {
                 a1.Execute(); 
                 a1.CloseConnection();
-                ViewData["stat"] = $"Udało się usunąć tabelę {tableName}";
+                ViewData["stat"] = $"Udało się usunąć sklep {tableName}";
             }
             catch
             {
-                ViewData["stat"] = $"Nie udało się usunąć tabeli {tableName}";
+                ViewData["stat"] = $"Nie udało się usunąć sklepu {tableName}";
             }
             return View();
         }
@@ -136,7 +136,7 @@ namespace PO_SQL.Controllers
                         a2.Execute();
                         line = s1.ReadLine();
                     }
-                    ViewData["stat"] = "Udało się zaimportować tabelę";
+                    ViewData["stat"] = "Udało się zaimportować sklep";
                 }
                 catch
                 {
