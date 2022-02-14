@@ -7,17 +7,46 @@
 }
 @using (Html.BeginForm("AddProductResult", "DatabaseResults"))
 {
-    <div class="text-center">
-        <h1 class="display-4">Dodaj Produkt</h1><br />
-        <select class="text-center" name="Table" id="dropdowntipo" style = "width:210px">
-            @for (int i = 0; tables.Read(); i++)
-            {
-                <option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>
+<div class="text-center">
+    <h1 class="display-4">Dodaj Produkt</h1><br />
+    <select class="text-center" name="Table" id="dropdowntipo" style="width:210px">
+        @for (int i = 0; tables.Read(); i++)
+        {
+            <option value="@tables.GetString(0)" name="TableName">@tables.GetString(0)</option>
+        }
+    </select><br /><br />@{a1.CloseConnection();}
+    <input type="text" placeholder="Nazwa" name="Name" /><br /><br />
+    <input type="text" placeholder="Fragment opisu" name="Desc" /><br /><br />
+    <input type="text" name="Price" placeholder="Cena" /><br /><br />
+    <input type="submit" name="Submit" value="Dodaj" disabled/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        function check_if_not_empty() {
+            if ($('input[name=Name]').val() === '' ||
+                $('input[name=Desc]').val() === '' ||
+                $('input[name=Price]').val() === '') {
+                $('input[name="Submit"]').attr('disabled', 'disabled');
+            } else {
+                $('input[name="Submit"]').removeAttr('disabled');
+                return false;
             }
-        </select><br/><br/>@{a1.CloseConnection();}
-        <input type="text" placeholder="Nazwa" name="Name" /><br /><br />
-        <input type="text" placeholder="Fragment opisu" name="Desc" /><br /><br />
-        <input type="text" name="Price" placeholder="Cena" /><br /><br />
-        <input type="submit" name="Submit" value="Dodaj"/>
+        }
+        $(document).ready(function () {
+            $('select[name=Table]').change(function () {
+                check_if_not_empty();
+            })
+            $('input[name=Name]').change(function () {
+                check_if_not_empty();
+            })
+            $('input[name=Desc]').change(function () {
+                check_if_not_empty();
+            })
+            $('input[name=Price]').change(function () {
+                check_if_not_empty();
+            })
+        });
+    </script>
     </div>
 }
