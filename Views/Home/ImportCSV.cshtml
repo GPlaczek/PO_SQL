@@ -2,16 +2,33 @@
 
 <div class="text-center">
     <h1 class="display-4">Importuj bazę danych z pliku csv</h1><br />
-   
+
     @using (Html.BeginForm("ImportTableResult", "Results", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <input type="text" name="TableName" placeholder="Nazwa tabeli" /> <br /><br />
         <div class="row" style="margin-left: 9.5cm;">
             <div class="form-group col-md-6">
-                <input type="file" class="form-control" name="FileName" style="text-align: center;"/>
+                <input type="file" class="form-control" name="FileName" style="text-align: center;" />
             </div>
 
         </div>
-        <input type="submit" name="Submit" value="Importuj"/>
-    }   
+        <input type="submit" name="Submit" value="Importuj" disabled/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript">
+        function check_if_not_empty() {
+            if ($('input[name=TableName]').val() === ''){
+                $('input[name="Submit"]').attr('disabled', 'disabled');
+            } else {
+                $('input[name="Submit"]').removeAttr('disabled');
+                return false;
+            }
+        }
+        $(document).ready(function () {
+            $('input[name=TableName]').change(function () {
+                check_if_not_empty();
+            })
+        });
+        </script>
+    }
 </div>
