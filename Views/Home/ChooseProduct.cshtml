@@ -20,13 +20,13 @@
     @{a1.CloseConnection();}
     @Html.DropDownList("Name", new SelectList(string.Empty, "Value", "Text"), "Produkt do modyfikacji", new { name = "Name", style = "width:210px; text-align: center", @class = "dropdown1" })
     <br /><br />
-    Nazwa: <br/>
-    <p id="name" name="name">Nazwa</p>
-    Opis: <br/>
-    <p id="desc" name="desc">Fragment opisu</p>
-    Cena: <br/>
-    <p id="price" name="price">Cena produktu</p>
-
+    Nazwa: <br />
+    <input type="text" name="Id" /> <br />
+    Fragment opisu: <br />
+    <input type="text" name="Desc" /> <br />
+    Cena: <br />
+    <input type="text" name="Price" /> <br />
+    <br />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -72,9 +72,9 @@
             let val = $('#Name').val();
             let product = data[val];
             console.log(product);
-            $("#name").append('<input type="text" name="Id" value="' + product['name'] + '"/>');
-            $("#desc").append('<input type="text" name="Desc" value="'+product['desc']+'"/>');
-            $("#price").append('<input type="text" name="Price" value="' + product['price'] + '"/>');
+            $('input[name=Id]').attr('value', product['name'])
+            $('input[name=Desc]').attr('value', product['desc'])
+            $('input[name=Price]').attr('value', product['price'])
         }
 
         $(document).ready(function () {
