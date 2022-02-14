@@ -144,10 +144,10 @@
                 var checked = this.$el.find(':checked');
 
                 this.areAllChecked = false;
-                this.$checkAll.html('Check All');
+                this.$checkAll.html('Zaznacz Wszystko');
 
                 if (checked.length <= 0) {
-                    this.$label.html('Select Options');
+                    this.$label.html('Wybierz Sklep');
                     $('input[name="Submit"]').attr('disabled', 'disabled');
                     console.log($('input[name="Submit"]').disabled);
                 } else {
@@ -157,9 +157,9 @@
                         this.$label.html(checked.parent('label').text());
                     } else
                         if (checked.length === this.$inputs.length) {
-                            this.$label.html('All Selected');
+                            this.$label.html('Wszystko Zaznaczone');
                             this.areAllChecked = true;
-                            this.$checkAll.html('Uncheck All');
+                            this.$checkAll.html('Odznacz Wszystko');
                         } else {
                             this.$label.html(checked.length + ' Selected');
                         }
@@ -169,11 +169,11 @@
             CheckboxDropdown.prototype.onCheckAll = function (checkAll) {
                 if (!this.areAllChecked || checkAll) {
                     this.areAllChecked = true;
-                    this.$checkAll.html('Uncheck All');
+                    this.$checkAll.html('Odznacz Wszystko');
                     this.$inputs.prop('checked', true);
                 } else {
                     this.areAllChecked = false;
-                    this.$checkAll.html('Check All');
+                    this.$checkAll.html('Zaznacz wszystko');
                     this.$inputs.prop('checked', false);
                 }
 
