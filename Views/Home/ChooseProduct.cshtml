@@ -21,11 +21,11 @@
     @Html.DropDownList("Name", new SelectList(string.Empty, "Value", "Text"), "Produkt do modyfikacji", new { name = "Name", style = "width:210px; text-align: center", @class = "dropdown1" })
     <br /><br />
     Nazwa: <br/>
-    <p id="name" name="name">Nazwa</p>
+    <p id="name" name="name"></p>
     Opis: <br/>
-    <p id="desc" name="desc">Fragment opisu</p>
+    <p id="desc" name="desc"></p>
     Cena: <br/>
-    <p id="price" name="price">Cena produktu</p>
+    <p id="price" name="price"></p>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
@@ -72,6 +72,9 @@
             let val = $('#Name').val();
             let product = data[val];
             console.log(product);
+            $("#name").empty();
+            $("#desc").empty();
+            $("#price").empty();
             $("#name").append('<input type="text" name="Id" value="' + product['name'] + '"/>');
             $("#desc").append('<input type="text" name="Desc" value="'+product['desc']+'"/>');
             $("#price").append('<input type="text" name="Price" value="' + product['price'] + '"/>');
