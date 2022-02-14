@@ -63,15 +63,16 @@ namespace PO_SQL.Controllers
             }
             return View();
         }
-        public IActionResult ModifyResult(int Id, string Name, string Desc, string Price, string Table)
+        [HttpPost]
+        public IActionResult ModifyResult(int Name, string Id, string Desc, float Price, string Table)
         {
-            try
+            if(Table != null)
             {
-                a1 = new ModifyProduct(Id, Name, Desc, Price, Table);
+                a1 = new ModifyProduct(Name, Id, Desc, Price, Table);
                 a1.Execute();
                 ViewData["stat"] = "Udało się zmodyfikować produkt";
             }
-            catch
+            else
             {
                 ViewData["stat"] = "Nie udało się zmodyfikować produktu";
             }

@@ -43,7 +43,7 @@ namespace PO_SQL.Controllers
         {
             return View();
         }
-        
+        [HttpPost]
         public IActionResult ModifyProduct(string Name, string Table)
         {
             if (Table != null)

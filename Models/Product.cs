@@ -8,12 +8,12 @@ namespace PO_SQL.Models{
         public int Id{ get; }
         public string Name{ get; set; }
         public string Description{ get; set; }
-        public double Price{ get; set; }
+        public float Price{ get; set; }
         public string Table { get; set; }
 
         public Product(){}
 
-        public Product(int Id, string Name, string Description, double Price, string Table)
+        public Product(int Id, string Name, string Description, float Price, string Table)
         {
             this.Id = Id;
             this.Name = Name;

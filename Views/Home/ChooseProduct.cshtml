@@ -5,7 +5,7 @@
     IAction a1 = new ListTables();
     var tables = a1.Execute();
 }
-@using (Html.BeginForm("ModifyProduct", "Home"))
+@using (Html.BeginForm("ModifyResult", "DatabaseResults"))
 {
 <div class="text-center">
     <h1 class="display-4">Modyfikuj produkt</h1>
@@ -20,9 +20,11 @@
     @{a1.CloseConnection();}
     @Html.DropDownList("Name", new SelectList(string.Empty, "Value", "Text"), "Produkt do modyfikacji", new { name = "Name", style = "width:210px; text-align: center", @class = "dropdown1" })
     <br /><br />
-    Opis:
+    Nazwa: <br/>
+    <p id="name" name="name">Nazwa</p>
+    Opis: <br/>
     <p id="desc" name="desc">Fragment opisu</p>
-    Cena:
+    Cena: <br/>
     <p id="price" name="price">Cena produktu</p>
 
 
@@ -49,14 +51,16 @@
                         data: { id: $('select[name="Table"]').val() },
                         success: function (products) {
                             data = products;
-                            $("#desc").text('Fragment opisu');
-                            $("#price").text('Cena produktu');
+                            //$("#name").text('Nazwa');
+                            //$("#desc").text('Fragment opisu');
+                            //$("#price").text('Cena produktu');
                             // states contains the JSON formatted list
                             // of states passed from the controller
                             $.each(products, function (i, product) {
                                 $("#Name").append('<option value="' + i + '">' + product['name'] + '</option>');
-                                refreshDesc();
+
                             });
+                            refreshDesc();
                             check_if_not_empty();
                         },
                         error: function (ex) {
@@ -68,8 +72,9 @@
             let val = $('#Name').val();
             let product = data[val];
             console.log(product);
-            $("#desc").text(product['desc']);
-            $("#price").text(product['price']);
+            $("#name").append('<input type="text" name="Id" value="' + product['name'] + '"/>');
+            $("#desc").append('<input type="text" name="Desc" value="'+product['desc']+'"/>');
+            $("#price").append('<input type="text" name="Price" value="' + product['price'] + '"/>');
         }
 
         $(document).ready(function () {

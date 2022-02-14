@@ -5,7 +5,7 @@
     Layout = "_Layout";
     ViewBag.Title = "Index";
     ViewData["Title"] = "Modyfikuj produkt";
-    var product = (Product)ViewData["Data"];
+    var product = ViewData["Data"] as Product;
 }
 @using (Html.BeginForm("ModifyResult", "DatabaseResults"))
 {
