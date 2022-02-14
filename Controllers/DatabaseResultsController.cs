@@ -21,16 +21,17 @@ namespace PO_SQL.Controllers
             {
                 try
                 {
-                    string[] Digits;
-                    if (int.TryParse(Price, out int _) && Price.Split(".")[1].Length <= 2)
+                    if (int.TryParse(Price, out var result)) success = true;
+                    else if (float.TryParse(Price, out var result2))
                     {
-                        success = true;
-                    }
-                    else
-                    {
-                        Digits = Price.Split(",");
-                        if (Digits[1].Length <= 2) success = true;
-                        Price = Digits[0] + "." + Digits[1];
+                        if(Price.IndexOf(".") >= 0 && Price.Split(".")[1].Length <= 2) success = true;
+                        else if(Price.IndexOf(",") >= 0 && Price.Split(",")[1].Length <= 2)
+                        {
+                            string[] Digits;
+                            Digits = Price.Split(",");
+                            Price = Digits[0] + "." + Digits[1];
+                            success = true;
+                        }
                     }
                 }
                 catch { }

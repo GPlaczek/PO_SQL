@@ -27,38 +27,27 @@ namespace PO_SQL.Controllers
             List<string> description = new();
             List<float> price = new();
             float priceMinValid=0, priceMaxValid=1000000000;
-            if (!float.TryParse(priceMin, out priceMinValid) || !float.TryParse(priceMax, out priceMaxValid))
+            if (priceMin == null) success = true;
+            else if (float.TryParse(priceMin, out priceMinValid)) 
             {
-                // DO POPRAWKI
-                try
+                if (priceMin.IndexOf(",") >= 0)
                 {
-                    if (priceMin == null && priceMax == null) success = true;
-                    else if (priceMin == null)
-                    {
-                        string[] digitsMax = priceMax.Split(",");
-                        priceMaxValid = float.Parse(digitsMax[0] + "." + digitsMax[1]);
-                        success = true;
-                    }
-                    else if (priceMax == null)
-                    {
-                        string[] digitsMin = priceMin.Split(",");
-                        priceMinValid = float.Parse(digitsMin[0] + "." + digitsMin[1]);
-                        success = true;
-                    }
-                    else
-                    {
-                        string[] digitsMax = priceMax.Split(",");
-                        priceMaxValid = float.Parse(digitsMax[0] + "." + digitsMax[1]);
-                        string[] digitsMin = priceMin.Split(",");
-                        priceMinValid = float.Parse(digitsMin[0] + "." + digitsMin[1]);
-                        success = true;
-                    }
+                    string[] Digits;
+                    Digits = priceMin.Split(",");
+                    priceMinValid = float.Parse(Digits[0] + "." + Digits[1]);
                 }
-                catch { }
+                success = true;
             }
-            else
-            { 
-                success = true;  
+            if (priceMax == null) success = true;
+            else if (float.TryParse(priceMax, out priceMaxValid))
+            {
+                if (priceMax.IndexOf(",") >= 0)
+                {
+                    string[] Digits;
+                    Digits = priceMax.Split(",");
+                    priceMaxValid = float.Parse(Digits[0] + "." + Digits[1]);
+                }
+                success = true;
             }
             if (success)
             {
