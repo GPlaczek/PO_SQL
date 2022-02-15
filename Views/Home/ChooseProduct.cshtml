@@ -77,9 +77,16 @@
             let val = $('#Name').val();
             let product = data[val];
             console.log(product);
-            $('input[name=Id]').val(product['name'])
-            $('input[name=Desc]').val(product['desc'])
-            $('input[name=Price]').val(product['price'])
+            if (typeof product == 'undefined') {
+                $('input[name=Id]').val('')
+                $('input[name=Desc]').val('')
+                $('input[name=Price]').val('')
+            }
+            else {
+                $('input[name=Id]').val(product['name'])
+                $('input[name=Desc]').val(product['desc'])
+                $('input[name=Price]').val(product['price'])
+            }
         }
 
         $(document).ready(function () {
