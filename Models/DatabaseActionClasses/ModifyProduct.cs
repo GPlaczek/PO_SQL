@@ -9,11 +9,11 @@ namespace PO_SQL.Models.DatabaseActionClasses
 {
     public class ModifyProduct : IDatabaseAction
     {
-        private int Id { get; set; }
-        private string Name { get; set; }
-        private string Desc { get; set; }
-        private float Price { get; set; }
-        private string Table { get; set; }
+        private int Id { get; }
+        private string Name { get; }
+        private string Desc { get; }
+        private float Price { get; }
+        private string Table { get; }
         public ModifyProduct(int Id, string Name, string Desc, float Price, string Table)
         {
             this.Id = Id;

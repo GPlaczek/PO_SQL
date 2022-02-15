@@ -9,8 +9,8 @@ namespace PO_SQL.Models.DatabaseActionClasses
 {
     public class DeleteProduct : IDatabaseAction
     {
-        public int Id { get; set; }
-        public string Table { get; set; }
+        private int Id { get; }
+        public string Table { get; }
         public DeleteProduct(int Id, string Table)
         {
             this.Id = Id;

@@ -10,7 +10,7 @@ namespace PO_SQL.Models.ActionClasses
 {
     public class DeleteTable : IAction
     {
-        public string Name { get; set; }
+        private string Name { get; }
         private SQLiteConnection c1;
         public DeleteTable(string Name)
         {

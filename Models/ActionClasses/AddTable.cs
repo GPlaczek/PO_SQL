@@ -8,7 +8,7 @@ namespace PO_SQL.Models.ActionClasses
 {
     public class AddTable : IAction
     {
-        public string Name { get; set; }
+        private string Name { get; }
         private SQLiteConnection c1;
         public AddTable(string Name)
         {
